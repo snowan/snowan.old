@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_1.jpeg')
+        background-image: url('/img/bg_3.jpeg')
     }
 </style>
 <header class="intro-header">
@@ -239,7 +239,7 @@ ADD UNIQUE (email);
 </code></pre>
 
 <p>You can check index use <code>show indexes from user;</code>
-<img src="https://github.com/snowan/snowan.images/blob/master/tech/mysql_unique_index_1.png" alt="alt text" />
+<img src="/img/mysql_unique_index_1.png" alt="alt text" />
 If you want a combination of UNIQUE key, use constraint, for example,
 we want user name and phone be unique, add combination of name and phone as unique key.</p>
 
@@ -265,7 +265,7 @@ we want user name and phone be unique, add combination of name and phone as uniq
 
 <p>Now DB has one row, and let&rsquo;s insert the same email again into <code>user</code>, it will prevent us to add it.</p>
 
-<p><img src="https://github.com/snowan/snowan.images/blob/master/tech/mysql_unique_index_2.png" alt="alt text" /></p>
+<p><img src="/img/mysql_unique_index_2.png" alt="alt text" /></p>
 
 <p>Now we know how to add Unique index (constraints), when to chose <code>UNIQUE index</code> vs <code>Non-UNIQUE index</code>?</p>
 
@@ -299,7 +299,7 @@ mysql&gt; show indexes from user;
 
 <p>Inorder to compare performance between <code>UNIQUE Index</code> and <code>Non-UNIQUE index</code>, we need to introduce <code>change buffer</code>. (below fig source from <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL change buffer</a>)</p>
 
-<p><img src="https://github.com/snowan/snowan.images/blob/master/tech/mysql_unique_index_3.png" alt="alt text" /></p>
+<p><img src="/img/mysql_unique_index_3.png" alt="alt text" /></p>
 
 <ul>
 <li><p>What operations can be in <code>change buffer</code>?
