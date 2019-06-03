@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Snowan Blog</title>
-    <link>https://snowan.github.io/</link>
-    <description>Recent content on Snowan Blog</description>
+    <title>test on Snowan Blog</title>
+    <link>https://snowan.github.io/tags/test/</link>
+    <description>Recent content in test on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://snowan.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://snowan.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,16 +18,6 @@
       
       <guid>https://snowan.github.io/post/test/</guid>
       <description>Hello World! &amp;ldquo;Yeah, Snowan blog is on!!&amp;rdquo; [R] - MySQL index: Unique Index What is Unique Index? In MySql, if we want to enfore uniqueness column or keys, we usually use Primary Key constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using UNIQUE (), for example: CREATE TABLE user( id int NOT NULL AUTO PRIMAEY KEY, name varchar(50), username</description>
-    </item>
-    
-    <item>
-      <title>Snowan Hellow World post</title>
-      <link>https://snowan.github.io/post/hello-world/</link>
-      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://snowan.github.io/post/hello-world/</guid>
-      <description>Hello World!  &amp;ldquo;Yeah, Snowan blog is on!!&amp;rdquo;
- Snowan First blog&amp;hellip;</description>
     </item>
     
   </channel>

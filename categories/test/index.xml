@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Test on Snowan Blog</title>
+    <link>https://snowan.github.io/categories/test/</link>
+    <description>Recent content in Test on Snowan Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://snowan.github.io/categories/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Snowan Hellow World post</title>
+      <link>https://snowan.github.io/post/hello-world/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/hello-world/</guid>
+      <description>Hello World!  &amp;ldquo;Yeah, Snowan blog is on!!&amp;rdquo;
+ Snowan First blog&amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>

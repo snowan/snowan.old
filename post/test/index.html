@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Snowan Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://snowan.github.io/img/bear.jpg">
+    <meta property="twitter:image" content="https://snowan.github.io/img/bear.jpg" />
+    
+
+    
+    <meta name="title" content="MySQL Index: Unique Index" />
+    <meta property="og:title" content="MySQL Index: Unique Index" />
+    <meta property="twitter:title" content="MySQL Index: Unique Index" />
+    
+
+    
+    <meta name="description" content="Bear Snowan Blog, explore stinky bear...">
+    <meta property="og:description" content="Bear Snowan Blog, explore stinky bear..." />
+    <meta property="twitter:description" content="Bear Snowan Blog, explore stinky bear..." />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>MySQL Index: Unique Index-Snowan Blog</title>
+
+    <link rel="canonical" href="/post/test/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Snowan Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/test">test</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/bear.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/test" title="test">
+                            test
+                        </a>
+                        
+                    </div>
+                    <h1>MySQL Index: Unique Index</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+			Posted by 
+			
+			         &#34;Snowan&#34;
+			 
+			on 
+			Sunday, June 2, 2019
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#hello-world">Hello World!</a></li>
+<li><a href="#r-mysql-index-unique-index-http-www-mysqltutorial-org-mysql-unique">[R] - <a href="http://www.mysqltutorial.org/mysql-unique/">MySQL index: Unique Index</a></a></li>
+<li><a href="#references">References</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h3 id="hello-world">Hello World!</h3>
+
+<hr />
+
+<blockquote>
+<p>&ldquo;Yeah, Snowan blog is on!!&rdquo;</p>
+</blockquote>
+
+<h3 id="r-mysql-index-unique-index-http-www-mysqltutorial-org-mysql-unique">[R] - <a href="http://www.mysqltutorial.org/mysql-unique/">MySQL index: Unique Index</a></h3>
+
+<hr />
+
+<ol>
+<li>What is Unique Index?</li>
+</ol>
+
+<p>In MySql, if we want to enfore uniqueness column or keys, we usually use <a href="https://dev.mysql.com/doc/refman/5.6/en/primary-key-optimization.html">Primary Key</a> constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using <code>UNIQUE ()</code>, for example:</p>
+
+<pre><code>CREATE TABLE user(
+  id int NOT NULL AUTO PRIMAEY KEY,
+  name varchar(50),
+  username varchar(50),
+  phone varchar(50) NOT NULL,
+  email varchar(100) NOT NULL,
+  UNIQUE (email)
+);
+</code></pre>
+
+<p>If you already created a table, and can use <code>ALTER</code> create <code>UNIQUE</code> key.</p>
+
+<pre><code>ALTER TABLE user
+ADD UNIQUE (email);
+</code></pre>
+
+<p>You can check index use <code>show indexes from user;</code>
+<img src="./images/mysql_unique_index_1.png" alt="alt text" />
+If you want a combination of UNIQUE key, use constraint, for example,
+we want user name and phone be unique, add combination of name and phone as unique key.</p>
+
+<p>Before we add combination Unique key, we need to check whether there is MySQL violations, if we want to add <code>username</code> and <code>phone</code> as combination unique, we need to check whether <code>username</code> and <code>phone</code> has duplications in DB, if yes, when add unique key, MySQL will prevent adding the new constraint. In order to add new constraint, remove duplicates.</p>
+
+<pre><code>alter table test add unique name_phone (username, phone);
+</code></pre>
+
+<ol>
+<li>Why need Unique Index?</li>
+</ol>
+
+<p>Now we know how to add <code>UNIQUE</code> constraints, what is the benefits adding them.</p>
+
+<p>If without <code>UNIQUE</code> constraint, in MySQL table, we can have multiple duplicates values, which is not we wanted, so by adding <code>UNIQUE</code> indexes, it will help to prevent dup values. for example, above, we added <code>username</code> and <code>phone</code> as <code>UNIQUE</code> index, so if we add the same value twice, it will cause error, value already exists.</p>
+
+<p>For example:</p>
+
+<p>Let&rsquo;s insert one row with email <code>xx@test.com</code></p>
+
+<pre><code>insert into user (email) value (&quot;xx@test.com&quot;);
+</code></pre>
+
+<p>Now DB has one row, and let&rsquo;s insert the same email again into <code>user</code>, it will prevent us to add it.</p>
+
+<p><img src="./images/mysql_unique_index_2.png" alt="alt text" /></p>
+
+<p>Now we know how to add Unique index (constraints), when to chose <code>UNIQUE index</code> vs <code>Non-UNIQUE index</code>?</p>
+
+<p>In order to answer this question, we need to know how unique and non-unique index work when <code>select</code> or <code>update</code> happens.</p>
+
+<p>We will learn how it works using examples. Say we have <code>user</code> table, and contains data and <code>Unique index (score)</code>:</p>
+
+<pre><code>mysql&gt; select * from user;
++----+------+-------+-------+
+| id | name | score | email |
++----+------+-------+-------+
+|  1 | dog  |     1 | NULL  |
+|  4 | bear |     4 | NULL  |
+|  9 | test |     9 | NULL  |
+| 10 | dd   |    10 | NULL  |
+| 11 | hehe |    11 | NULL  |
+| 12 | haha |    12 | NULL  |
++----+------+-------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql&gt; show indexes from user;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| user  |          0 | PRIMARY  |            1 | id          | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
+| user  |          1 | score    |            1 | score       | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+2 rows in set (0.00 sec)
+</code></pre>
+
+<p>Inorder to compare performance between <code>UNIQUE Index</code> and <code>Non-UNIQUE index</code>, we need to introduce <code>change buffer</code>. (below fig source from <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL change buffer</a>)</p>
+
+<p><img src="./images/mysql_unique_index_3.png" alt="alt text" /></p>
+
+<ul>
+<li><p>What operations can be in <code>change buffer</code>?
+&gt;<code>SELECT</code>, <code>UPDATE</code> and <code>DELETE</code> (DML) can modify <code>seconddary indexes (Non-UNIQUE indexes)</code>. If an affected index page (InnoDB is doing operations per page) is not in <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool"><code>buffer pool</code></a>, the changes will buffered into <code>change buffer</code>.</p></li>
+
+<li><p>The benefits using <code>change buffer</code>.
+&gt; When <code>secondary indexes (Non-UNIQUE indexes)</code> are not in <code>buffer pool</code>, to prevent expensive random access I/O operations that requires immediately read in effected index pages from disk. Buffered changes can be applied later in batches as pages read by other read into buffer pool by other read operations.</p></li>
+
+<li><p>When <code>change buffer</code> merge?
+&gt; - when a page is read into <code>buffer pool</code>
+&gt; - Background task schedule change buffer merge, i.e. set <code>innodb_io_capacity</code> upper limit on the I/O activity.
+&gt; - During crash recovery, change buffer merge.
+&gt; - Change buffer is persistent (durable and recover from system crash).
+&gt; - Full change buffer merge can be forced happen when server shutdown, using <code>--innodb-fast-shutdown=0</code>.</p></li>
+
+<li><p>When should use and when should not use <code>change buffer</code>?
+&gt; - <code>change buffer</code> is designed to reduce random I/O access to <code>secondary indexes</code>. When <code>buffer pool</code> is not fit all changes, <code>change buffer</code> should be used.
+&gt; - when entire data set fits within InnoDB <code>buffer pool</code>.</p></li>
+
+<li><p>How to check <code>change buffer</code> size?  - <code>&gt; show engine innodb status;</code></p>
+
+<pre><code>mysql&gt; show engine innodb status;
+
+-------------------------------------
+INSERT BUFFER AND ADAPTIVE HASH INDEX
+-------------------------------------
+Ibuf: size 1, free list len 0, seg size 2, 0 merges
+merged operations:
+insert 0, delete mark 0, delete 0
+discarded operations:
+insert 0, delete mark 0, delete 0
+Hash table size 34679, node heap has 4 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 3 buffer(s)
+0.00 hash searches/s, 0.00 non-hash searches/s
+---
+</code></pre></li>
+</ul>
+
+<p><strong>Query</strong></p>
+
+<p>now we want to find <code>ids</code> when <code>score=4</code>.</p>
+
+<pre><code>select id from user where score=4;
+</code></pre>
+
+<p>For <code>Unique index</code>, when it find <code>score=4</code>, stop scan, return value, since <code>Unique index</code> no dup data in DB.</p>
+
+<p>For <code>Non-Unique index</code>, when it find <code>score=4</code>, it will continue scan next value until it find <code>score != 4</code>, because <code>non-unique index</code> allow duplicates data.</p>
+
+<p>InnoDB read/write per page, one page can have</p>
+
+<p><strong>Update</strong></p>
+
+<p>As now we know when to use <code>change buffer</code> and when not to use, so depends on how big the data set is, whether it can fits into <code>buffer pool</code>.</p>
+
+<p>When update data in in <code>buffer pool</code>, then <code>UNIQUE indexes</code> and <code>Non-UNIQUE indexes</code> performance are similar.</p>
+
+<p>when data is not in <code>buffer pool</code>,
+- <code>UNIQUE indexes</code> will need to random I/O access, put page into <code>buffer pool</code>, then do update
+- <code>Non-UNIQUE indexes</code> uses <code>change buffer</code>, eliminate random I/O access to <code>buffer pool</code> operation, which will have a big performance improvement.</p>
+
+<p>Based on the find, if application already guarateed data unique, then recommend <code>Non-UNIQUE indexes</code> over <code>UNIQUE indexes</code>, it will have a big performance improvement especially when dealing with a big data set.</p>
+
+<h3 id="references">References</h3>
+
+<ol>
+<li><a href="https://www.oreilly.com/library/view/high-performance-mysql/0596003064/ch04.html">High Performance MySQL Index</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/en/mysql-indexes.html">How MySQL Uses Indexes</a></li>
+<li><a href="https://www.vertabelo.com/blog/technical-articles/all-about-indexes-part-2-mysql-index-structure-and-performance">All about MySQL index structure and performance</a></li>
+<li>MySSQL 实战</li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL InnoDB change buffer</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/en/faqs-innodb-change-buffer.html">FAQs MySQL InnoDB change buffer</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool">InnoDB Buffer Pool</a></li>
+</ol>
+
+<p>Snowan First blog&hellip;</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="https://snowan.github.io"><img src="/img/favicon.png" />Snowan Blog</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/hello-world/" data-toggle="tooltip" data-placement="top" title="Snowan Hellow World post">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://snowan.github.io">Bear&#39;s Blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Snowan Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:xiaowei.wan89@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    <li>
+                        <a target="_blank" href="/your%20wechat%20qr%20code%20image">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/snowan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/xiaoweiwan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Snowan Blog 2019
+
+
+
+
+
+
+
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
