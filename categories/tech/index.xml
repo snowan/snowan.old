@@ -13,11 +13,11 @@
     
     <item>
       <title>MySQL Index: Unique Index</title>
-      <link>https://snowan.github.io/post/test/</link>
+      <link>https://snowan.github.io/post/mysql-unique-index/</link>
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://snowan.github.io/post/test/</guid>
-      <description>Hello World! &amp;ldquo;Yeah, Snowan blog is on!!&amp;rdquo; [R] - MySQL index: Unique Index What is Unique Index? In MySql, if we want to enfore uniqueness column or keys, we usually use Primary Key constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using UNIQUE (), for example: CREATE TABLE user( id int NOT NULL AUTO PRIMAEY KEY, name varchar(50), username</description>
+      <guid>https://snowan.github.io/post/mysql-unique-index/</guid>
+      <description>MySQL index: Unique Index What is Unique Index? In MySql, if we want to enfore uniqueness column or keys, we usually use Primary Key constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using UNIQUE (), for example: CREATE TABLE user( id int NOT NULL AUTO PRIMAEY KEY, name varchar(50), username varchar(50), phone varchar(50) NOT NULL, email varchar(100) NOT NULL,</description>
     </item>
     
   </channel>

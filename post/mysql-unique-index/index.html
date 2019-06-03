@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="Snowan Hellow World post" />
-    <meta property="og:title" content="Snowan Hellow World post" />
-    <meta property="twitter:title" content="Snowan Hellow World post" />
+    <meta name="title" content="MySQL Index: Unique Index" />
+    <meta property="og:title" content="MySQL Index: Unique Index" />
+    <meta property="twitter:title" content="MySQL Index: Unique Index" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Snowan Hellow World post-Snowan Blog</title>
+    <title>MySQL Index: Unique Index-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/hello-world/">
+    <link rel="canonical" href="/post/mysql-unique-index/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -160,8 +160,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/mysql" title="MySql">
+                            MySql
+                        </a>
+                        
+                        <a class="tag" href="/tags/tech" title="tech">
+                            tech
+                        </a>
+                        
                     </div>
-                    <h1>Snowan Hellow World post</h1>
+                    <h1>MySQL Index: Unique Index</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -197,25 +205,181 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#hello-world">Hello World!</a></li>
-</ul></li>
-</ul></li>
+<li><a href="#mysql-index-unique-index">MySQL index: Unique Index</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
                 
                 
 
-<h3 id="hello-world">Hello World!</h3>
+<h1 id="mysql-index-unique-index">MySQL index: Unique Index</h1>
 
-<blockquote>
-<p>&ldquo;Yeah, Snowan blog is on!!&rdquo;</p>
-</blockquote>
+<hr />
 
-<p>Snowan First blog&hellip;</p>
+<ol>
+<li>What is Unique Index?</li>
+</ol>
+
+<p>In MySql, if we want to enfore uniqueness column or keys, we usually use <a href="https://dev.mysql.com/doc/refman/5.6/en/primary-key-optimization.html">Primary Key</a> constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using <code>UNIQUE ()</code>, for example:</p>
+
+<pre><code>CREATE TABLE user(
+  id int NOT NULL AUTO PRIMAEY KEY,
+  name varchar(50),
+  username varchar(50),
+  phone varchar(50) NOT NULL,
+  email varchar(100) NOT NULL,
+  UNIQUE (email)
+);
+</code></pre>
+
+<p>If you already created a table, and can use <code>ALTER</code> create <code>UNIQUE</code> key.</p>
+
+<pre><code>ALTER TABLE user
+ADD UNIQUE (email);
+</code></pre>
+
+<p>You can check index use <code>show indexes from user;</code>
+<img src="https://github.com/snowan/snowan.images/blob/master/tech/mysql_unique_index_1.png" alt="alt text" />
+If you want a combination of UNIQUE key, use constraint, for example,
+we want user name and phone be unique, add combination of name and phone as unique key.</p>
+
+<p>Before we add combination Unique key, we need to check whether there is MySQL violations, if we want to add <code>username</code> and <code>phone</code> as combination unique, we need to check whether <code>username</code> and <code>phone</code> has duplications in DB, if yes, when add unique key, MySQL will prevent adding the new constraint. In order to add new constraint, remove duplicates.</p>
+
+<pre><code>alter table test add unique name_phone (username, phone);
+</code></pre>
+
+<ol>
+<li>Why need Unique Index?</li>
+</ol>
+
+<p>Now we know how to add <code>UNIQUE</code> constraints, what is the benefits adding them.</p>
+
+<p>If without <code>UNIQUE</code> constraint, in MySQL table, we can have multiple duplicates values, which is not we wanted, so by adding <code>UNIQUE</code> indexes, it will help to prevent dup values. for example, above, we added <code>username</code> and <code>phone</code> as <code>UNIQUE</code> index, so if we add the same value twice, it will cause error, value already exists.</p>
+
+<p>For example:</p>
+
+<p>Let&rsquo;s insert one row with email <code>xx@test.com</code></p>
+
+<pre><code>insert into user (email) value (&quot;xx@test.com&quot;);
+</code></pre>
+
+<p>Now DB has one row, and let&rsquo;s insert the same email again into <code>user</code>, it will prevent us to add it.</p>
+
+<p><img src="https://github.com/snowan/snowan.images/blob/master/tech/mysql_unique_index_2.png" alt="alt text" /></p>
+
+<p>Now we know how to add Unique index (constraints), when to chose <code>UNIQUE index</code> vs <code>Non-UNIQUE index</code>?</p>
+
+<p>In order to answer this question, we need to know how unique and non-unique index work when <code>select</code> or <code>update</code> happens.</p>
+
+<p>We will learn how it works using examples. Say we have <code>user</code> table, and contains data and <code>Unique index (score)</code>:</p>
+
+<pre><code>mysql&gt; select * from user;
++----+------+-------+-------+
+| id | name | score | email |
++----+------+-------+-------+
+|  1 | dog  |     1 | NULL  |
+|  4 | bear |     4 | NULL  |
+|  9 | test |     9 | NULL  |
+| 10 | dd   |    10 | NULL  |
+| 11 | hehe |    11 | NULL  |
+| 12 | haha |    12 | NULL  |
++----+------+-------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql&gt; show indexes from user;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| user  |          0 | PRIMARY  |            1 | id          | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
+| user  |          1 | score    |            1 | score       | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+2 rows in set (0.00 sec)
+</code></pre>
+
+<p>Inorder to compare performance between <code>UNIQUE Index</code> and <code>Non-UNIQUE index</code>, we need to introduce <code>change buffer</code>. (below fig source from <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL change buffer</a>)</p>
+
+<p><img src="https://github.com/snowan/snowan.images/blob/master/tech/mysql_unique_index_3.png" alt="alt text" /></p>
+
+<ul>
+<li><p>What operations can be in <code>change buffer</code>?
+&gt;<code>SELECT</code>, <code>UPDATE</code> and <code>DELETE</code> (DML) can modify <code>seconddary indexes (Non-UNIQUE indexes)</code>. If an affected index page (InnoDB is doing operations per page) is not in <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool"><code>buffer pool</code></a>, the changes will buffered into <code>change buffer</code>.</p></li>
+
+<li><p>The benefits using <code>change buffer</code>.
+&gt; When <code>secondary indexes (Non-UNIQUE indexes)</code> are not in <code>buffer pool</code>, to prevent expensive random access I/O operations that requires immediately read in effected index pages from disk. Buffered changes can be applied later in batches as pages read by other read into buffer pool by other read operations.</p></li>
+
+<li><p>When <code>change buffer</code> merge?
+&gt; - when a page is read into <code>buffer pool</code>
+&gt; - Background task schedule change buffer merge, i.e. set <code>innodb_io_capacity</code> upper limit on the I/O activity.
+&gt; - During crash recovery, change buffer merge.
+&gt; - Change buffer is persistent (durable and recover from system crash).
+&gt; - Full change buffer merge can be forced happen when server shutdown, using <code>--innodb-fast-shutdown=0</code>.</p></li>
+
+<li><p>When should use and when should not use <code>change buffer</code>?
+&gt; - <code>change buffer</code> is designed to reduce random I/O access to <code>secondary indexes</code>. When <code>buffer pool</code> is not fit all changes, <code>change buffer</code> should be used.
+&gt; - when entire data set fits within InnoDB <code>buffer pool</code>.</p></li>
+
+<li><p>How to check <code>change buffer</code> size?  - <code>&gt; show engine innodb status;</code></p>
+
+<pre><code>mysql&gt; show engine innodb status;
+
+-------------------------------------
+INSERT BUFFER AND ADAPTIVE HASH INDEX
+-------------------------------------
+Ibuf: size 1, free list len 0, seg size 2, 0 merges
+merged operations:
+insert 0, delete mark 0, delete 0
+discarded operations:
+insert 0, delete mark 0, delete 0
+Hash table size 34679, node heap has 4 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 1 buffer(s)
+Hash table size 34679, node heap has 3 buffer(s)
+0.00 hash searches/s, 0.00 non-hash searches/s
+---
+</code></pre></li>
+</ul>
+
+<p><strong>Query</strong></p>
+
+<p>now we want to find <code>ids</code> when <code>score=4</code>.</p>
+
+<pre><code>select id from user where score=4;
+</code></pre>
+
+<p>For <code>Unique index</code>, when it find <code>score=4</code>, stop scan, return value, since <code>Unique index</code> no dup data in DB.</p>
+
+<p>For <code>Non-Unique index</code>, when it find <code>score=4</code>, it will continue scan next value until it find <code>score != 4</code>, because <code>non-unique index</code> allow duplicates data.</p>
+
+<p>InnoDB read/write per page, one page can have</p>
+
+<p><strong>Update</strong></p>
+
+<p>As now we know when to use <code>change buffer</code> and when not to use, so depends on how big the data set is, whether it can fits into <code>buffer pool</code>.</p>
+
+<p>When update data in in <code>buffer pool</code>, then <code>UNIQUE indexes</code> and <code>Non-UNIQUE indexes</code> performance are similar.</p>
+
+<p>when data is not in <code>buffer pool</code>,
+- <code>UNIQUE indexes</code> will need to random I/O access, put page into <code>buffer pool</code>, then do update
+- <code>Non-UNIQUE indexes</code> uses <code>change buffer</code>, eliminate random I/O access to <code>buffer pool</code> operation, which will have a big performance improvement.</p>
+
+<p>Based on the find, if application already guarateed data unique, then recommend <code>Non-UNIQUE indexes</code> over <code>UNIQUE indexes</code>, it will have a big performance improvement especially when dealing with a big data set.</p>
+
+<h1 id="references">References</h1>
+
+<ol>
+<li><a href="https://www.oreilly.com/library/view/high-performance-mysql/0596003064/ch04.html">High Performance MySQL Index</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/en/mysql-indexes.html">How MySQL Uses Indexes</a></li>
+<li><a href="https://www.vertabelo.com/blog/technical-articles/all-about-indexes-part-2-mysql-index-structure-and-performance">All about MySQL index structure and performance</a></li>
+<li>MySSQL 实战</li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL InnoDB change buffer</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/en/faqs-innodb-change-buffer.html">FAQs MySQL InnoDB change buffer</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool">InnoDB Buffer Pool</a></li>
+</ol>
 
 
                 
@@ -263,11 +427,11 @@
                 <hr>
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/post/mysql-unique-index/" data-toggle="tooltip" data-placement="top" title="MySQL Index: Unique Index">Next
-                            Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/post/hello-world/" data-toggle="tooltip" data-placement="top" title="Snowan Hellow World post">&larr;
+                            Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
