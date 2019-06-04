@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://snowan.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>创建和发布第一个Hugo site 到你的 Github pages</title>
+      <link>https://snowan.github.io/post/hugo-to-github/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/hugo-to-github/</guid>
+      <description>这篇文章将要带你一步一步创建第一个Hugo静态网页, 并发布到Github pages. 安装 Hugo 快速安装 hugo Homebrew 安装(macOS) brew install hugo 更多其他OS安装请查看 Hugo</description>
+    </item>
     
     <item>
       <title>MySQL Index: Unique Index</title>

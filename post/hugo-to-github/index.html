@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="MySQL Index: Unique Index" />
-    <meta property="og:title" content="MySQL Index: Unique Index" />
-    <meta property="twitter:title" content="MySQL Index: Unique Index" />
+    <meta name="title" content="创建和发布第一个Hugo site 到你的 Github pages" />
+    <meta property="og:title" content="创建和发布第一个Hugo site 到你的 Github pages" />
+    <meta property="twitter:title" content="创建和发布第一个Hugo site 到你的 Github pages" />
     
 
     
-    <meta name="description" content="Introduce MySql Unique Index">
-    <meta property="og:description" content="Introduce MySql Unique Index" />
-    <meta property="twitter:description" content="Introduce MySql Unique Index" />
+    <meta name="description" content="Step by step 创建和发布第一个Hugo site 到Github pages">
+    <meta property="og:description" content="Step by step 创建和发布第一个Hugo site 到Github pages" />
+    <meta property="twitter:description" content="Step by step 创建和发布第一个Hugo site 到Github pages" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>MySQL Index: Unique Index-Snowan Blog</title>
+    <title>创建和发布第一个Hugo site 到你的 Github pages-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/mysql-unique-index/">
+    <link rel="canonical" href="/post/hugo-to-github/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_3.jpeg')
+        background-image: url('/img/bg_hugo.jpeg')
     }
 </style>
 <header class="intro-header">
@@ -160,12 +160,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/mysql" title="MySql">
-                            MySql
+                        <a class="tag" href="/tags/hugo" title="Hugo">
+                            Hugo
+                        </a>
+                        
+                        <a class="tag" href="/tags/github" title="Github">
+                            Github
                         </a>
                         
                     </div>
-                    <h1>MySQL Index: Unique Index</h1>
+                    <h1>创建和发布第一个Hugo site 到你的 Github pages</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -173,7 +177,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Sunday, June 2, 2019
+			Monday, June 3, 2019
                         
                     </span>
                 </div>
@@ -201,180 +205,201 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#mysql-index-unique-index">MySQL index: Unique Index</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#安装-hugo-https-gohugo-io-getting-started-installing">安装 <a href="https://gohugo.io/getting-started/installing/"><code>Hugo</code></a></a></li>
+<li><a href="#创建-hugo-site">创建 Hugo site</a></li>
+<li><a href="#添加主题-theme">添加主题(theme)</a></li>
+<li><a href="#deploy">Deploy</a></li>
+<li><a href="#创建content">创建content</a></li>
+<li><a href="#reference">Reference</a></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="mysql-index-unique-index">MySQL index: Unique Index</h1>
+<p>这篇文章将要带你一步一步创建第一个Hugo静态网页, 并发布到Github pages.</p>
 
-<hr />
+<h1 id="安装-hugo-https-gohugo-io-getting-started-installing">安装 <a href="https://gohugo.io/getting-started/installing/"><code>Hugo</code></a></h1>
+
+<p>快速安装 <code>hugo</code></p>
+
+<p>Homebrew 安装(macOS)</p>
+
+<pre><code>brew install hugo
+</code></pre>
+
+<p>更多其他OS安装请查看 <a href="https://gohugo.io/getting-started/installing/">Hugo installing</a></p>
+
+<p>查看时候安装成功: <code>hugo version</code></p>
+
+<pre><code>&gt; hugo version 
+Hugo Static Site Generator v0.55.6/extended darwin/amd64 BuildDate: unknown
+</code></pre>
+
+<p>如果看到Hugo 版本号信息, 那么恭喜你已经成功安装 Hugo.</p>
+
+<h1 id="创建-hugo-site">创建 Hugo site</h1>
+
+<p>打开 Terminal, 输入命令行创建第一个hugo site (first_hugo_site), 并进入到site当前目录.</p>
+
+<pre><code>&gt; hugo new site first_hugo_site
+&gt; cd first_hugo_site
+
+</code></pre>
+
+<p>到这里, 你已经成功创建了一个空的hugo 静态网页, 对, 就是这么简单&hellip; 现在我们可以加一些主题, 内容, 并让你的网页跑起来.</p>
+
+<h1 id="添加主题-theme">添加主题(theme)</h1>
+
+<p>你可以到Hugo主题栏, 有很多简洁优美的主题, 挑选一个适合你的吧. Hugo主题在<a href="https://themes.gohugo.io/">这里</a>找到.
+我个人<a href="https://snowan.github.io/">Github Pages</a>用的是<a href="https://themes.gohugo.io/hugo-theme-cleanwhite/">hugo-theme-cleanwhite</a>主题. 接下来的例子中我都会用这个主题来介绍.</p>
 
 <ol>
-<li>What is Unique Index?</li>
+<li><p>创建一个Github repo (first_hugo_site), 如果你还没有Github 账号, 可以在<a href="https://github.com/">这里</a>申请一个.
+现在我们有了 first_hugo_site repo, 在当前目录下初始化<code>git</code></p>
+
+<pre><code>first_hugo_site &gt; git init
+</code></pre></li>
+
+<li><p>添加Hugo 主题到你的site, 首先创建一个名为<code>themes</code>文件夹, 然后用 <code>git submodule add ...</code> 添加主题,</p>
+
+<pre><code>first_hugo_site &gt; mkdir themes
+first_hugo_site &gt; git submodule add https://github.com/zhaohuabing/hugo-theme-cleanwhite.git themes/hugo-theme-cleanwhite
+</code></pre></li>
+
+<li><p>在本地 run hugo server,</p>
+
+<pre><code>first_hugo_site &gt; hugo serve -t hugo-theme-cleanwhite
+</code></pre>
+
+<p>现在你应该在<a href="http://localhost:1313/">localhost:1313</a>能看到hugo主题已经up, 如下所示, 然后你可以修改配置(<code>config.toml</code>), customize成你自己的blog页面. 具体如何修改,请参考<a href="https://github.com/zhaohuabing/hugo-theme-cleanwhite/blob/master/README.md#configuration">这里</a>.</p></li>
 </ol>
 
-<p>In MySql, if we want to enfore uniqueness column or keys, we usually use <a href="https://dev.mysql.com/doc/refman/5.6/en/primary-key-optimization.html">Primary Key</a> constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using <code>UNIQUE ()</code>, for example:</p>
+<p><img src="/img/hugo_site_1.png" alt="alt text" /></p>
 
-<pre><code>CREATE TABLE user(
-  id int NOT NULL AUTO PRIMAEY KEY,
-  name varchar(50),
-  username varchar(50),
-  phone varchar(50) NOT NULL,
-  email varchar(100) NOT NULL,
-  UNIQUE (email)
-);
+<h1 id="deploy">Deploy</h1>
+
+<p>到这里, 我们已经创建好了基本的hugo site, 接下来要deploy hugo site 到Github pages, 这里需要你创建Git repo 来host GitHub pages. 所以你需要2个 Github Repos, 一个repo是 Hugo site, 另一个是用来hold给 github pages 生成的HTML, 进行加载和渲染, 内容可以真正在你的Github pages 上显示.
+两个Git repos: <code>first_hugo_site</code>, <code>&lt;username&gt;.github.io</code> (这个是你的 github pages URL).</p>
+
+<p>新建Git repo, 可以参考<a href="https://help.github.com/en/articles/create-a-repo">这里</a>.</p>
+
+<p>现在我们已经有了两个repos, 接下来我们需要把hugo site 和 github pages 连接起来.</p>
+
+<pre><code>// 添加remote repo
+first_hugo_site &gt; git remote add origin https://github.com/&lt;githubusername&gt;/first_hugo_site.git
+
+// 添加github pages repo as submodule
+first_hugo_site &gt; git submodule add https://github.com/&lt;githubusername&gt;/&lt;githubusername&gt;.github.io.git
+
+// 添加本地所有改动
+first_hugo_site &gt; git add . 
+
+// commit
+first_hugo_site &gt; git commit -m &quot;First commit first hugo site&quot;
+
+// push 本地文件到远程git repo
+first_hugo_site &gt; git push origin master
 </code></pre>
 
-<p>If you already created a table, and can use <code>ALTER</code> create <code>UNIQUE</code> key.</p>
+<p>到目前为止, 我们已经成功push 本地改动到远程的 <code>first_hugo_site</code> repo. 我们还需要生成HTML 页面给GitHub Pages 渲染和加载. <code>hugo</code> 会生成文件到<code>public</code>文件夹, 现在我们要修改<code>config.toml</code>, 使得新生成的HTML文件能够发布到submodule <code>&lt;githubusername&gt;.github.io</code> 网站.</p>
 
-<pre><code>ALTER TABLE user
-ADD UNIQUE (email);
+<pre><code>first_hugo_site &gt; vim config.toml
+
+  baseurl = &quot;https://&lt;githubusername&gt;.github.io&quot;
+  title = &quot;Your Blog&quot;
+  theme = &quot;hugo-theme-cleanwhite&quot;
+  languageCode = &quot;en-us&quot;
+  # Enable comments by entering your Disqus shortname
+  paginate = 5 #frontpage pagination
+  hasCJKLanguage = true
+  publishDir = &quot;&lt;githubusername&gt;.github.io&quot;
+...
+
 </code></pre>
-
-<p>You can check index use <code>show indexes from user;</code>
-<img src="/img/mysql_unique_index_1.png" alt="alt text" />
-If you want a combination of UNIQUE key, use constraint, for example,
-we want user name and phone be unique, add combination of name and phone as unique key.</p>
-
-<p>Before we add combination Unique key, we need to check whether there is MySQL violations, if we want to add <code>username</code> and <code>phone</code> as combination unique, we need to check whether <code>username</code> and <code>phone</code> has duplications in DB, if yes, when add unique key, MySQL will prevent adding the new constraint. In order to add new constraint, remove duplicates.</p>
-
-<pre><code>alter table test add unique name_phone (username, phone);
-</code></pre>
-
-<ol>
-<li>Why need Unique Index?</li>
-</ol>
-
-<p>Now we know how to add <code>UNIQUE</code> constraints, what is the benefits adding them.</p>
-
-<p>If without <code>UNIQUE</code> constraint, in MySQL table, we can have multiple duplicates values, which is not we wanted, so by adding <code>UNIQUE</code> indexes, it will help to prevent dup values. for example, above, we added <code>username</code> and <code>phone</code> as <code>UNIQUE</code> index, so if we add the same value twice, it will cause error, value already exists.</p>
-
-<p>For example:</p>
-
-<p>Let&rsquo;s insert one row with email <code>xx@test.com</code></p>
-
-<pre><code>insert into user (email) value (&quot;xx@test.com&quot;);
-</code></pre>
-
-<p>Now DB has one row, and let&rsquo;s insert the same email again into <code>user</code>, it will prevent us to add it.</p>
-
-<p><img src="/img/mysql_unique_index_2.png" alt="alt text" /></p>
-
-<p>Now we know how to add Unique index (constraints), when to chose <code>UNIQUE index</code> vs <code>Non-UNIQUE index</code>?</p>
-
-<p>In order to answer this question, we need to know how unique and non-unique index work when <code>select</code> or <code>update</code> happens.</p>
-
-<p>We will learn how it works using examples. Say we have <code>user</code> table, and contains data and <code>Unique index (score)</code>:</p>
-
-<pre><code>mysql&gt; select * from user;
-+----+------+-------+-------+
-| id | name | score | email |
-+----+------+-------+-------+
-|  1 | dog  |     1 | NULL  |
-|  4 | bear |     4 | NULL  |
-|  9 | test |     9 | NULL  |
-| 10 | dd   |    10 | NULL  |
-| 11 | hehe |    11 | NULL  |
-| 12 | haha |    12 | NULL  |
-+----+------+-------+-------+
-6 rows in set (0.00 sec)
-
-
-mysql&gt; show indexes from user;
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-| user  |          0 | PRIMARY  |            1 | id          | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
-| user  |          1 | score    |            1 | score       | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-2 rows in set (0.00 sec)
-</code></pre>
-
-<p>Inorder to compare performance between <code>UNIQUE Index</code> and <code>Non-UNIQUE index</code>, we need to introduce <code>change buffer</code>. (below fig source from <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL change buffer</a>)</p>
-
-<p><img src="/img/mysql_unique_index_3.png" alt="alt text" /></p>
 
 <ul>
-<li><p>What operations can be in <code>change buffer</code>?
-&gt;<code>SELECT</code>, <code>UPDATE</code> and <code>DELETE</code> (DML) can modify <code>seconddary indexes (Non-UNIQUE indexes)</code>. If an affected index page (InnoDB is doing operations per page) is not in <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool"><code>buffer pool</code></a>, the changes will buffered into <code>change buffer</code>.</p></li>
+<li><p><code>baseurl</code> 设置你的blog url, 所有生成的HTML 和内容就会发布到url</p></li>
 
-<li><p>The benefits using <code>change buffer</code>.
-&gt; When <code>secondary indexes (Non-UNIQUE indexes)</code> are not in <code>buffer pool</code>, to prevent expensive random access I/O operations that requires immediately read in effected index pages from disk. Buffered changes can be applied later in batches as pages read by other read into buffer pool by other read operations.</p></li>
-
-<li><p>When <code>change buffer</code> merge?
-&gt; - when a page is read into <code>buffer pool</code>
-&gt; - Background task schedule change buffer merge, i.e. set <code>innodb_io_capacity</code> upper limit on the I/O activity.
-&gt; - During crash recovery, change buffer merge.
-&gt; - Change buffer is persistent (durable and recover from system crash).
-&gt; - Full change buffer merge can be forced happen when server shutdown, using <code>--innodb-fast-shutdown=0</code>.</p></li>
-
-<li><p>When should use and when should not use <code>change buffer</code>?
-&gt; - <code>change buffer</code> is designed to reduce random I/O access to <code>secondary indexes</code>. When <code>buffer pool</code> is not fit all changes, <code>change buffer</code> should be used.
-&gt; - when entire data set fits within InnoDB <code>buffer pool</code>.</p></li>
-
-<li><p>How to check <code>change buffer</code> size?  - <code>&gt; show engine innodb status;</code></p>
-
-<pre><code>mysql&gt; show engine innodb status;
-
--------------------------------------
-INSERT BUFFER AND ADAPTIVE HASH INDEX
--------------------------------------
-Ibuf: size 1, free list len 0, seg size 2, 0 merges
-merged operations:
-insert 0, delete mark 0, delete 0
-discarded operations:
-insert 0, delete mark 0, delete 0
-Hash table size 34679, node heap has 4 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 3 buffer(s)
-0.00 hash searches/s, 0.00 non-hash searches/s
----
-</code></pre></li>
+<li><p><code>publishDir</code> 告诉Hugo 所有新生成的HTML 和内容都要发布到目录下 (在 <code>first_hugo_site</code> 有submodule <code>&lt;githubusername&gt;.github.io</code>)</p></li>
 </ul>
 
-<p><strong>Query</strong></p>
+<p>用 <code>hugo</code> 生成HTML和内容到 <code>&lt;githubusername&gt;.github.io</code> submodule,</p>
 
-<p>now we want to find <code>ids</code> when <code>score=4</code>.</p>
-
-<pre><code>select id from user where score=4;
+<pre><code>first_hugo_site &gt; hugo
 </code></pre>
 
-<p>For <code>Unique index</code>, when it find <code>score=4</code>, stop scan, return value, since <code>Unique index</code> no dup data in DB.</p>
+<p>到这里, 已经一切准备就绪, 现在submodule<code>&lt;githubusername&gt;.github.io</code> 已经有生成的HTML, CSS 等内容, 最后一步就是push 到远程的 <code>&lt;githubusername&gt;.github.io</code> repo, 然后你的GitHub pages 就可以上线了.</p>
 
-<p>For <code>Non-Unique index</code>, when it find <code>score=4</code>, it will continue scan next value until it find <code>score != 4</code>, because <code>non-unique index</code> allow duplicates data.</p>
+<pre><code>// 到submodule 目录下
+first_hugo_site &gt; cd &lt;githubusername&gt;.github.io
 
-<p>InnoDB read/write per page, one page can have</p>
+// 添加所有本地改动
+first_hugo_site/&lt;githubusername&gt;.github.io &gt; git add .
 
-<p><strong>Update</strong></p>
+// commit 所有添加的本地修改
+first_hugo_site/&lt;githubusername&gt;.github.io &gt; git commit -m &quot;generate html and content&quot;
 
-<p>As now we know when to use <code>change buffer</code> and when not to use, so depends on how big the data set is, whether it can fits into <code>buffer pool</code>.</p>
+// push 到 远程repo
+first_hugo_site/&lt;githubusername&gt;.github.io &gt; git push origin master
+</code></pre>
 
-<p>When update data in in <code>buffer pool</code>, then <code>UNIQUE indexes</code> and <code>Non-UNIQUE indexes</code> performance are similar.</p>
+<p>等一小会(心急吃不热热豆腐, 😁), 去到你的github page 页面, <code>https://&lt;githubusername&gt;.github.io</code>, 现在你应该能看到你的第一个Hugo site (with theme) on Github pages. <a href="https://snowan.github.io/">例子</a> 如下:
+<img src="/img/hugo_site_2.png" alt="alt text" /></p>
 
-<p>when data is not in <code>buffer pool</code>,
-- <code>UNIQUE indexes</code> will need to random I/O access, put page into <code>buffer pool</code>, then do update
-- <code>Non-UNIQUE indexes</code> uses <code>change buffer</code>, eliminate random I/O access to <code>buffer pool</code> operation, which will have a big performance improvement.</p>
+<p>到这里你已经成功创建和发布了第一个Hugo site 到Github pages. 接下来让我们一起发布内容到blog.</p>
 
-<p>Based on the find, if application already guarateed data unique, then recommend <code>Non-UNIQUE indexes</code> over <code>UNIQUE indexes</code>, it will have a big performance improvement especially when dealing with a big data set.</p>
+<h1 id="创建content">创建content</h1>
 
-<h1 id="references">References</h1>
+<p>用hugo, 你可以创建一些内容, 用hugo 命令行</p>
+
+<pre><code>// 会在content文件夹下创建一个 posts 文件夹, ../content/posts/my-first-post.md
+first_hugo_site &gt; hugo new posts/my-first-post.md
+
+// content/posts/content/articles/my-first/article.mds/my-first/article.md
+first_hugo_site &gt; hugo new articles/my-first-article.md
+</code></pre>
+
+<p>以<code>hugo-theme-cleanwhite</code> 主题为例, 写一个<code>md</code>例子</p>
+
+<pre><code>first_hugo_site &gt; hugo new posts/hello-world.md
+first_hugo_site &gt; vim hello-world.md
+  ---
+  layout: post
+  title:       &quot;Snowan Hello World post&quot;
+  subtitle:    &quot;&quot;
+  description: &quot;&quot;
+  date:        2019-06-03
+  author:      &quot;Snowan&quot;
+  image:       &quot;&quot;
+  ---
+
+  ### Hello World!
+
+  &gt; &quot;Yeah, Snowan blog is on!!&quot;
+
+  Snowan First blog...
+
+</code></pre>
+
+<p><img src="/img/hugo_site_3.png" alt="alt text" /></p>
+
+<p>如果大家有问题, 可以在<a href="https://snowan.github.io">我的blog</a>下留言,</p>
+
+<p>或者是在<a href="https://github.com/snowan">Github</a> 上follow 我 (😁),</p>
+
+<p>或者是我的<a href="https://twitter.com/Ivy_snowan">Twitter</a>,</p>
+
+<p>或者<a href="https://m.weibo.cn/profile/2757041957">微博</a></p>
+
+<h1 id="reference">Reference</h1>
 
 <ol>
-<li><a href="https://www.oreilly.com/library/view/high-performance-mysql/0596003064/ch04.html">High Performance MySQL Index</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/mysql-indexes.html">How MySQL Uses Indexes</a></li>
-<li><a href="https://www.vertabelo.com/blog/technical-articles/all-about-indexes-part-2-mysql-index-structure-and-performance">All about MySQL index structure and performance</a></li>
-<li>MySSQL 实战</li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL InnoDB change buffer</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/faqs-innodb-change-buffer.html">FAQs MySQL InnoDB change buffer</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool">InnoDB Buffer Pool</a></li>
+<li><a href="https://inside.getambassador.com/creating-and-deploying-your-first-hugo-site-to-github-pages-1e1f496cf88d">Creating and deploying your first Hugo site to Github pages</a></li>
+<li><a href="https://discourse.gohugo.io/t/hugo-101-slowstart-for-beginners/18383">Hugo 101: Slowstart for beginners</a></li>
+<li><a href="https://gohugo.io/getting-started/quick-start/">Hugo quick start</a></li>
+<li><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#step-by-step-instructions">Hosting on Github step by step guid</a>
+
+<br /></li>
 </ol>
 
 
@@ -424,15 +449,10 @@ Hash table size 34679, node heap has 3 buffer(s)
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/hello-world/" data-toggle="tooltip" data-placement="top" title="Snowan Hellow World post">&larr;
+                        <a href="/post/mysql-unique-index/" data-toggle="tooltip" data-placement="top" title="MySQL Index: Unique Index">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/hugo-to-github/" data-toggle="tooltip" data-placement="top" title="创建和发布第一个Hugo site 到你的 Github pages">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
