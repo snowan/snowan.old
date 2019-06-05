@@ -245,10 +245,13 @@ Explanation: There are three words in words that are a subsequence of S: &quot;a
 <li>The length of <code>words[i]</code> will be in the range of <code>[1, 50]</code>.</li>
 </ul>
 
-<p>题的意思是: 给一个很长的字符串<code>S</code>, 和一个字符串数组<code>words</code>, 求字符串数组中字符是<code>S</code>的连续子序列, (下面是<a href="https://www.wikiwand.com/zh/%E5%AD%90%E5%BA%8F%E5%88%97">维基百科的定义</a>)
-&gt; 在数学中，某个序列的子序列是从最初序列通过去除某些元素但不破坏余下元素的相对位置（在前或在后）而形成的新序列。
-&gt;
-&gt;正式地说，假设 X 是集合而 (ak)k ∈ K 是 X 中的序列，其中若 (ak) 是有限序列，则 K = {1,2,3,&hellip;,n}；若 (ak) 是无限序列，则K = \mathbb{N} 。则 (ak) 的子序列是形如 {\displaystyle (a<em>{n</em>{r)))} 的序列，这里的 (nr) 是在索引集合 K 中严格递增序列</p>
+<p>题的意思是: 给一个很长的字符串<code>S</code>, 和一个字符串数组<code>words</code>, 求字符串数组中字符是<code>S</code>的连续子序列, (下面是<a href="https://www.wikiwand.com/zh/%E5%AD%90%E5%BA%8F%E5%88%97">维基百科的定义</a>)</p>
+
+<blockquote>
+<p>在数学中，某个序列的子序列是从最初序列通过去除某些元素但不破坏余下元素的相对位置（在前或在后）而形成的新序列。</p>
+
+<p>正式地说，假设 X 是集合而 (ak)k ∈ K 是 X 中的序列，其中若 (ak) 是有限序列，则 K = {1,2,3,&hellip;,n}；若 (ak) 是无限序列，则K = \mathbb{N} 。则 (ak) 的子序列是形如 {\displaystyle (a<em>{n</em>{r)))} 的序列，这里的 (nr) 是在索引集合 K 中严格递增序列</p>
+</blockquote>
 
 <h1 id="解答">解答</h1>
 
@@ -305,7 +308,7 @@ Explanation: There are three words in words that are a subsequence of S: &quot;a
 <p>我们知道<code>S</code>的长度要远大于<code>words</code>的长度, 所以我们应该尽量只遍历一遍<code>S</code>, 这样的话, 我们就可以提高performance. 这里参考大神 <a href="https://leetcode.com/problems/number-of-matching-subsequences/discuss/117634/Efficient-and-simple-go-through-words-in-parallel-with-explanation">StefanPochmann
 </a> 讨论里提出的解法.</p>
 
-<p>思路是</p>
+<p>思路如下:</p>
 
 <p>按<code>words</code>中每个<code>word</code>的第一个字符分组,</p>
 
@@ -345,7 +348,7 @@ words = [&quot;a&quot;, &quot;bb&quot;, &quot;acd&quot;, &quot;ace&quot;]
     - 删除‘e', 重新分组
     - 得到新的分组: res = 3
       ['b', {&quot;b&quot;}]'
-遍历S结束, 得到结果, 剩下的分组都不是S的subsequence.   
+遍历S结束, 得到结果, 剩下的分组都不是S的subsequence. 
 </code></pre>
 
 <p><code>Java</code> 解法:</p>
@@ -400,6 +403,8 @@ class Solution:
 <p>如果喜欢, 请关注<a href="https://github.com/snowan/interviews">Github interview repo</a> 获得更多的解题, 和<a href="https://snowan.github.io/">Snowan Blog</a></p>
 
 <p>~刷题愉快!~~</p>
+
+<p>P.S. 本blog所有图片都是本人拍摄. ;)</p>
 
 
                 
