@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="MySQL Index: Unique Index" />
-    <meta property="og:title" content="MySQL Index: Unique Index" />
-    <meta property="twitter:title" content="MySQL Index: Unique Index" />
+    <meta name="title" content="Leetcode 792 Number of Matching Subsequences 的解题报告" />
+    <meta property="og:title" content="Leetcode 792 Number of Matching Subsequences 的解题报告" />
+    <meta property="twitter:title" content="Leetcode 792 Number of Matching Subsequences 的解题报告" />
     
 
     
-    <meta name="description" content="Introduce MySql Unique Index">
-    <meta property="og:description" content="Introduce MySql Unique Index" />
-    <meta property="twitter:description" content="Introduce MySql Unique Index" />
+    <meta name="description" content="Leetcode 792 Number of Matching Subsequences 的解题报告">
+    <meta property="og:description" content="Leetcode 792 Number of Matching Subsequences 的解题报告" />
+    <meta property="twitter:description" content="Leetcode 792 Number of Matching Subsequences 的解题报告" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>MySQL Index: Unique Index-Snowan Blog</title>
+    <title>Leetcode 792 Number of Matching Subsequences 的解题报告-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/mysql-unique-index/">
+    <link rel="canonical" href="/post/lc792/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_3.jpeg')
+        background-image: url('/img/bg_16.JPG')
     }
 </style>
 <header class="intro-header">
@@ -160,12 +160,20 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/mysql" title="MySql">
-                            MySql
+                        <a class="tag" href="/tags/leetcode" title="Leetcode">
+                            Leetcode
+                        </a>
+                        
+                        <a class="tag" href="/tags/algorithm" title="Algorithm">
+                            Algorithm
+                        </a>
+                        
+                        <a class="tag" href="/tags/string" title="String">
+                            String
                         </a>
                         
                     </div>
-                    <h1>MySQL Index: Unique Index</h1>
+                    <h1>Leetcode 792 Number of Matching Subsequences 的解题报告</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -173,7 +181,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Sunday, June 2, 2019
+			Tuesday, June 4, 2019
                         
                     </span>
                 </div>
@@ -201,181 +209,197 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#mysql-index-unique-index">MySQL index: Unique Index</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#question">Question</a></li>
+<li><a href="#解答">解答</a>
+<ul>
+<li><a href="#解法1">解法1:</a>
+<ul>
+<li><a href="#时间复杂度-tc">时间复杂度 (TC):</a></li>
+<li><a href="#空间复杂度-sc">空间复杂度 (SC):</a></li>
+</ul></li>
+<li><a href="#解法2">解法2</a></li>
+</ul></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="mysql-index-unique-index">MySQL index: Unique Index</h1>
+<h1 id="question">Question</h1>
 
-<hr />
+<p>Given string <code>S</code> and a dictionary of words <code>words</code>, find the number of <code>words[i]</code> that is a subsequence of <code>S</code>.</p>
 
-<ol>
-<li>What is Unique Index?</li>
-</ol>
-
-<p>In MySql, if we want to enfore uniqueness column or keys, we usually use <a href="https://dev.mysql.com/doc/refman/5.6/en/primary-key-optimization.html">Primary Key</a> constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using <code>UNIQUE ()</code>, for example:</p>
-
-<pre><code>CREATE TABLE user(
-  id int NOT NULL AUTO PRIMAEY KEY,
-  name varchar(50),
-  username varchar(50),
-  phone varchar(50) NOT NULL,
-  email varchar(100) NOT NULL,
-  UNIQUE (email)
-);
+<pre><code>Example :
+Input: 
+S = &quot;abcde&quot;
+words = [&quot;a&quot;, &quot;bb&quot;, &quot;acd&quot;, &quot;ace&quot;]
+Output: 3
+Explanation: There are three words in words that are a subsequence of S: &quot;a&quot;, &quot;acd&quot;, &quot;ace&quot;.
 </code></pre>
 
-<p>If you already created a table, and can use <code>ALTER</code> create <code>UNIQUE</code> key.</p>
-
-<pre><code>ALTER TABLE user
-ADD UNIQUE (email);
-</code></pre>
-
-<p>You can check index use <code>show indexes from user;</code>
-<img src="/img/mysql_unique_index_1.png" alt="alt text" />
-If you want a combination of UNIQUE key, use constraint, for example,
-we want user name and phone be unique, add combination of name and phone as unique key.</p>
-
-<p>Before we add combination Unique key, we need to check whether there is MySQL violations, if we want to add <code>username</code> and <code>phone</code> as combination unique, we need to check whether <code>username</code> and <code>phone</code> has duplications in DB, if yes, when add unique key, MySQL will prevent adding the new constraint. In order to add new constraint, remove duplicates.</p>
-
-<pre><code>alter table test add unique name_phone (username, phone);
-</code></pre>
-
-<ol>
-<li>Why need Unique Index?</li>
-</ol>
-
-<p>Now we know how to add <code>UNIQUE</code> constraints, what is the benefits adding them.</p>
-
-<p>If without <code>UNIQUE</code> constraint, in MySQL table, we can have multiple duplicates values, which is not we wanted, so by adding <code>UNIQUE</code> indexes, it will help to prevent dup values. for example, above, we added <code>username</code> and <code>phone</code> as <code>UNIQUE</code> index, so if we add the same value twice, it will cause error, value already exists.</p>
-
-<p>For example:</p>
-
-<p>Let&rsquo;s insert one row with email <code>xx@test.com</code></p>
-
-<pre><code>insert into user (email) value (&quot;xx@test.com&quot;);
-</code></pre>
-
-<p>Now DB has one row, and let&rsquo;s insert the same email again into <code>user</code>, it will prevent us to add it.</p>
-
-<p><img src="/img/mysql_unique_index_2.png" alt="alt text" /></p>
-
-<p>Now we know how to add Unique index (constraints), when to chose <code>UNIQUE index</code> vs <code>Non-UNIQUE index</code>?</p>
-
-<p>In order to answer this question, we need to know how unique and non-unique index work when <code>select</code> or <code>update</code> happens.</p>
-
-<p>We will learn how it works using examples. Say we have <code>user</code> table, and contains data and <code>Unique index (score)</code>:</p>
-
-<pre><code>mysql&gt; select * from user;
-+----+------+-------+-------+
-| id | name | score | email |
-+----+------+-------+-------+
-|  1 | dog  |     1 | NULL  |
-|  4 | bear |     4 | NULL  |
-|  9 | test |     9 | NULL  |
-| 10 | dd   |    10 | NULL  |
-| 11 | hehe |    11 | NULL  |
-| 12 | haha |    12 | NULL  |
-+----+------+-------+-------+
-6 rows in set (0.00 sec)
-
-
-mysql&gt; show indexes from user;
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-| user  |          0 | PRIMARY  |            1 | id          | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
-| user  |          1 | score    |            1 | score       | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-2 rows in set (0.00 sec)
-</code></pre>
-
-<p>Inorder to compare performance between <code>UNIQUE Index</code> and <code>Non-UNIQUE index</code>, we need to introduce <code>change buffer</code>. (below fig source from <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL change buffer</a>)</p>
-
-<p><img src="/img/mysql_unique_index_3.png" alt="alt text" /></p>
+<p><strong>Note</strong>:</p>
 
 <ul>
-<li><p>What operations can be in <code>change buffer</code>?
-&gt;<code>SELECT</code>, <code>UPDATE</code> and <code>DELETE</code> (DML) can modify <code>seconddary indexes (Non-UNIQUE indexes)</code>. If an affected index page (InnoDB is doing operations per page) is not in <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool"><code>buffer pool</code></a>, the changes will buffered into <code>change buffer</code>.</p></li>
-
-<li><p>The benefits using <code>change buffer</code>.
-&gt; When <code>secondary indexes (Non-UNIQUE indexes)</code> are not in <code>buffer pool</code>, to prevent expensive random access I/O operations that requires immediately read in effected index pages from disk. Buffered changes can be applied later in batches as pages read by other read into buffer pool by other read operations.</p></li>
-
-<li><p>When <code>change buffer</code> merge?
-&gt; - when a page is read into <code>buffer pool</code>
-&gt; - Background task schedule change buffer merge, i.e. set <code>innodb_io_capacity</code> upper limit on the I/O activity.
-&gt; - During crash recovery, change buffer merge.
-&gt; - Change buffer is persistent (durable and recover from system crash).
-&gt; - Full change buffer merge can be forced happen when server shutdown, using <code>--innodb-fast-shutdown=0</code>.</p></li>
-
-<li><p>When should use and when should not use <code>change buffer</code>?
-&gt; - <code>change buffer</code> is designed to reduce random I/O access to <code>secondary indexes</code>. When <code>buffer pool</code> is not fit all changes, <code>change buffer</code> should be used.
-&gt; - when entire data set fits within InnoDB <code>buffer pool</code>.</p></li>
-
-<li><p>How to check <code>change buffer</code> size?  - <code>&gt; show engine innodb status;</code></p>
-
-<pre><code>mysql&gt; show engine innodb status;
-
--------------------------------------
-INSERT BUFFER AND ADAPTIVE HASH INDEX
--------------------------------------
-Ibuf: size 1, free list len 0, seg size 2, 0 merges
-merged operations:
-insert 0, delete mark 0, delete 0
-discarded operations:
-insert 0, delete mark 0, delete 0
-Hash table size 34679, node heap has 4 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 3 buffer(s)
-0.00 hash searches/s, 0.00 non-hash searches/s
----
-</code></pre></li>
+<li>All words in <code>words</code> and <code>S</code> will only consists of lowercase letters.</li>
+<li>The length of <code>S</code> will be in the range of <code>[1, 50000]</code>.</li>
+<li>The length of <code>words</code> will be in the range of <code>[1, 5000]</code>.</li>
+<li>The length of <code>words[i]</code> will be in the range of <code>[1, 50]</code>.</li>
 </ul>
 
-<p><strong>Query</strong></p>
+<p>题的意思是: 给一个很长的字符串<code>S</code>, 和一个字符串数组<code>words</code>, 求字符串数组中字符是<code>S</code>的连续子序列, (下面是<a href="https://www.wikiwand.com/zh/%E5%AD%90%E5%BA%8F%E5%88%97">维基百科的定义</a>)
+&gt; 在数学中，某个序列的子序列是从最初序列通过去除某些元素但不破坏余下元素的相对位置（在前或在后）而形成的新序列。
+&gt;
+&gt;正式地说，假设 X 是集合而 (ak)k ∈ K 是 X 中的序列，其中若 (ak) 是有限序列，则 K = {1,2,3,&hellip;,n}；若 (ak) 是无限序列，则K = \mathbb{N} 。则 (ak) 的子序列是形如 {\displaystyle (a<em>{n</em>{r)))} 的序列，这里的 (nr) 是在索引集合 K 中严格递增序列</p>
 
-<p>now we want to find <code>ids</code> when <code>score=4</code>.</p>
+<h1 id="解答">解答</h1>
 
-<pre><code>select id from user where score=4;
+<h2 id="解法1">解法1:</h2>
+
+<p>首先能想到的是暴力解法, 对于每个<code>words</code>中字符, 判断其是否是<code>S</code>的subsequence, 如果是<code>res</code>就加<code>1</code>.</p>
+
+<p><strong>Pros</strong>:
+解法简单, 容易想到</p>
+
+<p><strong>Cons</strong>:
+这样时间复杂度很高, 而且按照题中<code>Note</code>中, <code>S</code>的长度要远大于<code>words</code>中字符的长度</p>
+
+<h3 id="时间复杂度-tc">时间复杂度 (TC):</h3>
+
+<p><code>O(m * n) - m is words length, n is S length</code></p>
+
+<h3 id="空间复杂度-sc">空间复杂度 (SC):</h3>
+
+<p><code>O(1)</code></p>
+
+<p>以下是<code>Java</code> 版本的实现:</p>
+
+<pre><code class="language-java">public int numMatchingSubseq(String S, String[] words) {
+        if (S == null || S.length() == 0 || words == null || words.length == 0) return 0;
+        int res = 0;
+        for (String w : words) {
+            if (isSubseq(S, w)) res++;
+        }
+        return res;
+    }
+    private boolean isSubseq(String s, String t) {
+       if (t.length() &gt; s.length()) return false;
+        int n = s.length();
+        int m = t.length();
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        while (i &lt; n &amp;&amp; j &lt; m) {
+          // rest cannot match, early termination
+          if (n - i &lt; m - j) return false;
+          if (s.charAt(i++) == t.charAt(j++)) {
+            count++;
+          } else {
+            i++;
+          }
+        }
+        return count == m;
+    }
 </code></pre>
 
-<p>For <code>Unique index</code>, when it find <code>score=4</code>, stop scan, return value, since <code>Unique index</code> no dup data in DB.</p>
+<h2 id="解法2">解法2</h2>
 
-<p>For <code>Non-Unique index</code>, when it find <code>score=4</code>, it will continue scan next value until it find <code>score != 4</code>, because <code>non-unique index</code> allow duplicates data.</p>
+<p>我们知道<code>S</code>的长度要远大于<code>words</code>的长度, 所以我们应该尽量只遍历一遍<code>S</code>, 这样的话, 我们就可以提高performance. 这里参考大神 <a href="https://leetcode.com/problems/number-of-matching-subsequences/discuss/117634/Efficient-and-simple-go-through-words-in-parallel-with-explanation">StefanPochmann
+</a> 讨论里提出的解法.</p>
 
-<p>InnoDB read/write per page, one page can have</p>
+<p>思路是</p>
 
-<p><strong>Update</strong></p>
+<p>按<code>words</code>中每个<code>word</code>的第一个字符分组,</p>
 
-<p>As now we know when to use <code>change buffer</code> and when not to use, so depends on how big the data set is, whether it can fits into <code>buffer pool</code>.</p>
+<p>遍历<code>S</code>中每一个字符<code>ch</code>,然后匹配以<code>ch</code>开头的组, 删除当前匹配的字符, 生成新的<code>word</code>保存到新的以当前<code>word</code>第一个字符分组中. 如果删除第一个字符后, 新的<code>word</code>长度为<code>0</code>, 那么<code>word</code>是<code>S</code>的subsequence, 结果加<code>1</code>.</p>
 
-<p>When update data in in <code>buffer pool</code>, then <code>UNIQUE indexes</code> and <code>Non-UNIQUE indexes</code> performance are similar.</p>
+<p>以题中给的例子详细解答过程:</p>
 
-<p>when data is not in <code>buffer pool</code>,
-- <code>UNIQUE indexes</code> will need to random I/O access, put page into <code>buffer pool</code>, then do update
-- <code>Non-UNIQUE indexes</code> uses <code>change buffer</code>, eliminate random I/O access to <code>buffer pool</code> operation, which will have a big performance improvement.</p>
+<pre><code>S = &quot;abcde&quot;
+words = [&quot;a&quot;, &quot;bb&quot;, &quot;acd&quot;, &quot;ace&quot;]
 
-<p>Based on the find, if application already guarateed data unique, then recommend <code>Non-UNIQUE indexes</code> over <code>UNIQUE indexes</code>, it will have a big performance improvement especially when dealing with a big data set.</p>
+1. 按words中每个word第一个字符分组:
+  ['a', {&quot;a&quot;, &quot;acd&quot;, &quot;ace&quot;}]
+  ['b', {&quot;bb&quot;}]
+2. 遍历S
+  - 当前字符: ‘a', 拿到分组中’a‘组strings,{&quot;a&quot;, &quot;acd&quot;, &quot;ace&quot;} 
+    - 把‘a’分组中第一个字符删除, 组成新的分组, 判断新的string长度是否为0, “a”删除’a‘为0, res++. 
+    - 得到新的分组: res = 1
+      ['c', {&quot;cd&quot;, &quot;ce&quot;}]
+      ['b', {&quot;bb&quot;}]
+  - 当前字符: ‘b', 拿到分组’b'中strings, {&quot;bb&quot;}
+    - 删除‘b', 重新分组
+    - 得到新的分组: res = 1
+      ['c', {&quot;cd&quot;, &quot;ce&quot;}]
+      ['b', {&quot;b&quot;}] 
+  - 当前字符: ‘c’
+    - 删除‘c', 重新分组
+    - 得到新的分组: res = 1
+      ['d', {&quot;d&quot;}]
+      ['b', {&quot;b&quot;}]  
+      ['e', {&quot;e&quot;}]
+  - 当前字符: ‘d’
+    - 删除‘d', 重新分组
+    - 得到新的分组: res = 2
+      ['b', {&quot;b&quot;}]  
+      ['e', {&quot;e&quot;}]
+  - 当前字符: ‘e’
+    - 删除‘e', 重新分组
+    - 得到新的分组: res = 3
+      ['b', {&quot;b&quot;}]'
+遍历S结束, 得到结果, 剩下的分组都不是S的subsequence.   
+</code></pre>
 
-<h1 id="references">References</h1>
+<p><code>Java</code> 解法:</p>
 
-<ol>
-<li><a href="https://www.oreilly.com/library/view/high-performance-mysql/0596003064/ch04.html">High Performance MySQL Index</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/mysql-indexes.html">How MySQL Uses Indexes</a></li>
-<li><a href="https://www.vertabelo.com/blog/technical-articles/all-about-indexes-part-2-mysql-index-structure-and-performance">All about MySQL index structure and performance</a></li>
-<li>MySSQL 实战</li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL InnoDB change buffer</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/faqs-innodb-change-buffer.html">FAQs MySQL InnoDB change buffer</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool">InnoDB Buffer Pool</a></li>
-</ol>
+<pre><code class="language-java">public int numMatchingSubseq(String S, String[] words) {
+    if (S == null || S.length() == 0 || words == null || words.length == 0) return 0;
+    int res = 0;
+    Map&lt;Character, List&lt;String&gt;&gt; map = new HashMap&lt;&gt;();
+    for (String w : words) {
+      char ch = w.charAt(0);
+      List&lt;String&gt; list = map.getOrDefault(ch, new ArrayList&lt;&gt;());
+      list.add(w);
+      map.put(ch, list);
+    }
+    for (char ch : S.toCharArray()) {
+      if (!map.containsKey(ch)) continue;
+      List&lt;String&gt; curr = map.get(ch);
+      map.remove(ch);
+      for (String s : curr) {
+        String tmp = s.substring(1);
+        if (tmp.length() == 0) {
+          res++;
+        } else {
+          List&lt;String&gt; next = map.getOrDefault(tmp.charAt(0), new ArrayList&lt;&gt;());
+          next.add(tmp);
+          map.put(tmp.charAt(0), next);
+        }
+      }
+    }
+    return res;
+  }
+</code></pre>
+
+<p><code>Python</code> 解法 (谢谢 <a href="https://github.com/sunboman">sunboman</a> Contribute. :-) )</p>
+
+<pre><code class="language-python">import collections
+
+class Solution:
+    def numMatchingSubseq(self, S: str, words: List[str]) -&gt; int:
+        word_dict = collections.defaultdict(list)
+        for word in words:
+            word_dict[word[0]].append(word[1:])
+        for c in S:
+            for word in word_dict.pop(c, []):
+                if not word:
+                    word_dict[''].append('')
+                else:
+                    word_dict[word[0]].append(word[1:])
+        return len(word_dict[''])
+</code></pre>
+
+<p>如果喜欢, 请关注<a href="https://github.com/snowan/interviews">Github interview repo</a> 获得更多的解题, 和<a href="https://snowan.github.io/">Snowan Blog</a></p>
+
+<p>~刷题愉快!~~</p>
 
 
                 
@@ -423,11 +447,11 @@ Hash table size 34679, node heap has 3 buffer(s)
                 <hr>
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/post/hugo-to-github/" data-toggle="tooltip" data-placement="top" title="创建和发布第一个Hugo site 到你的 Github pages">Next
-                            Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/post/hugo-to-github/" data-toggle="tooltip" data-placement="top" title="创建和发布第一个Hugo site 到你的 Github pages">&larr;
+                            Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 

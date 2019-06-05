@@ -6,10 +6,19 @@
     <description>Recent content in Tech on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://snowan.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode 792 Number of Matching Subsequences 的解题报告</title>
+      <link>https://snowan.github.io/post/lc792/</link>
+      <pubDate>Tue, 04 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/lc792/</guid>
+      <description>Question Given string S and a dictionary of words words, find the number of words[i] that is a subsequence of S. Example : Input: S = &amp;quot;abcde&amp;quot; words = [&amp;quot;a&amp;quot;, &amp;quot;bb&amp;quot;, &amp;quot;acd&amp;quot;, &amp;quot;ace&amp;quot;] Output: 3 Explanation: There are three words in words that are a subsequence of S: &amp;quot;a&amp;quot;, &amp;quot;acd&amp;quot;, &amp;quot;ace&amp;quot;. Note: All words in words and S will only consists of lowercase letters. The length of S will be</description>
+    </item>
     
     <item>
       <title>创建和发布第一个Hugo site 到你的 Github pages</title>
