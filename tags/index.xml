@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://snowan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dynamic programing</title>
+      <link>https://snowan.github.io/tags/dynamic-programing/</link>
+      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/tags/dynamic-programing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Leetcode</title>
+      <link>https://snowan.github.io/tags/leetcode/</link>
+      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Two pointer</title>
+      <link>https://snowan.github.io/tags/two-pointer/</link>
+      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/tags/two-pointer/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Algorithm</title>
@@ -17,15 +44,6 @@
       <pubDate>Tue, 04 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://snowan.github.io/tags/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Leetcode</title>
-      <link>https://snowan.github.io/tags/leetcode/</link>
-      <pubDate>Tue, 04 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://snowan.github.io/tags/leetcode/</guid>
       <description></description>
     </item>
     

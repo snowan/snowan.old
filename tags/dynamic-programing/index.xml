@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dynamic programing on Snowan Blog</title>
+    <link>https://snowan.github.io/tags/dynamic-programing/</link>
+    <description>Recent content in Dynamic programing on Snowan Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://snowan.github.io/tags/dynamic-programing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Leetcode 132 Palindrome Partitioning II 解题报告</title>
+      <link>https://snowan.github.io/post/lc132/</link>
+      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/lc132/</guid>
+      <description>Leetcode 132 Palindrome Partitioning II 解题报告 Question: Given a string s, partition s such that every substring of the partition is a palindrome. Return the minimum cuts needed for a palindrome partitioning of s. Example: Input: &amp;quot;aab&amp;quot; Output: 1 Explanation: The palindrome partitioning [&amp;quot;aa&amp;quot;,&amp;quot;b&amp;quot;] could be produced using 1 cut. Solution: Approach #1: DP dp[i][j] - min cut substring from i to j init</description>
+    </item>
+    
+  </channel>
+</rss>

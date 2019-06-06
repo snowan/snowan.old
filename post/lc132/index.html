@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="创建和发布第一个Hugo site 到你的 Github pages" />
-    <meta property="og:title" content="创建和发布第一个Hugo site 到你的 Github pages" />
-    <meta property="twitter:title" content="创建和发布第一个Hugo site 到你的 Github pages" />
+    <meta name="title" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
+    <meta property="og:title" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
+    <meta property="twitter:title" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
     
 
     
-    <meta name="description" content="Step by step 创建和发布第一个Hugo site 到Github pages">
-    <meta property="og:description" content="Step by step 创建和发布第一个Hugo site 到Github pages" />
-    <meta property="twitter:description" content="Step by step 创建和发布第一个Hugo site 到Github pages" />
+    <meta name="description" content="Leetcode 132 Palindrome Partitioning II 解题报告">
+    <meta property="og:description" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
+    <meta property="twitter:description" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>创建和发布第一个Hugo site 到你的 Github pages-Snowan Blog</title>
+    <title>Leetcode 132 Palindrome Partitioning II 解题报告-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/hugo-to-github/">
+    <link rel="canonical" href="/post/lc132/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_hugo.jpeg')
+        background-image: url('/img/bg_25.JPG')
     }
 </style>
 <header class="intro-header">
@@ -160,16 +160,20 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/hugo" title="Hugo">
-                            Hugo
+                        <a class="tag" href="/tags/leetcode" title="Leetcode">
+                            Leetcode
                         </a>
                         
-                        <a class="tag" href="/tags/github" title="Github">
-                            Github
+                        <a class="tag" href="/tags/dynamic-programing" title="Dynamic programing">
+                            Dynamic programing
+                        </a>
+                        
+                        <a class="tag" href="/tags/two-pointer" title="Two pointer">
+                            Two pointer
                         </a>
                         
                     </div>
-                    <h1>创建和发布第一个Hugo site 到你的 Github pages</h1>
+                    <h1>Leetcode 132 Palindrome Partitioning II 解题报告</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -177,7 +181,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Monday, June 3, 2019
+			Wednesday, June 5, 2019
                         
                     </span>
                 </div>
@@ -205,201 +209,239 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#安装-hugo-https-gohugo-io-getting-started-installing">安装 <a href="https://gohugo.io/getting-started/installing/"><code>Hugo</code></a></a></li>
-<li><a href="#创建-hugo-site">创建 Hugo site</a></li>
-<li><a href="#添加主题-theme">添加主题(theme)</a></li>
-<li><a href="#deploy">Deploy</a></li>
-<li><a href="#创建content">创建content</a></li>
+<li><a href="#leetcode-132-palindrome-partitioning-ii-解题报告">Leetcode 132 Palindrome Partitioning II 解题报告</a>
+<ul>
+<li><a href="#question">Question:</a></li>
+<li><a href="#solution">Solution:</a>
+<ul>
+<li><a href="#approach-1-dp">Approach #1: DP</a></li>
+<li><a href="#approach-2-two-pointers">Approach #2: Two pointers</a></li>
+</ul></li>
 <li><a href="#reference">Reference</a></li>
+</ul></li>
 </ul>
 </nav>
                 
                 
 
-<p>这篇文章将要带你一步一步创建第一个Hugo静态网页, 并发布到Github pages.</p>
+<h1 id="leetcode-132-palindrome-partitioning-ii-解题报告">Leetcode 132 Palindrome Partitioning II 解题报告</h1>
 
-<h1 id="安装-hugo-https-gohugo-io-getting-started-installing">安装 <a href="https://gohugo.io/getting-started/installing/"><code>Hugo</code></a></h1>
+<h2 id="question">Question:</h2>
 
-<p>快速安装 <code>hugo</code></p>
+<p>Given a string s, partition s such that every substring of the partition is a palindrome.</p>
 
-<p>Homebrew 安装(macOS)</p>
+<p>Return the minimum cuts needed for a palindrome partitioning of s.</p>
 
-<pre><code>brew install hugo
+<pre><code>Example:
+
+Input: &quot;aab&quot;
+Output: 1
+Explanation: The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.
 </code></pre>
 
-<p>更多其他OS安装请查看 <a href="https://gohugo.io/getting-started/installing/">Hugo installing</a></p>
+<h2 id="solution">Solution:</h2>
 
-<p>查看时候安装成功: <code>hugo version</code></p>
+<h3 id="approach-1-dp">Approach #1: DP</h3>
 
-<pre><code>&gt; hugo version 
-Hugo Static Site Generator v0.55.6/extended darwin/amd64 BuildDate: unknown
+<p><code>dp[i][j]</code> - min cut substring from <code>i</code> to <code>j</code></p>
+
+<p>init(初始化DP):</p>
+
+<p><code>dp[i][i] = 0</code>, since <code>substring[i,i]</code> is palindrome, no need to cut</p>
+
+<p>and <code>dp[i][j] = len + 1</code></p>
+
+<p>transition(状态转移方程):</p>
+
+<p>when substring[i,j] is palindrome, <code>dp[i][j] = 0</code></p>
+
+<p>otherwise <code>dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] + 1) (i &lt;= k &lt; j)</code>,</p>
+
+<p>return <code>dp[0][len-1]</code></p>
+
+<p>for example: &ldquo;abcbd&rdquo;</p>
+
+<p><code>len = 5</code>, <code>dp[5][5]</code>, fill <code>dp[i][j] = len + 1</code></p>
+
+<pre><code>when len = 1, 
+    dp[i][i] = 0, no need to cut
+when len = 2, 
+    i = 0, j = 1, !isPalindrome(0,1), dp[0][1] = 1
+    i = 1, j = 2, !isPalindrome(0,1), dp[1][2] = min(dp[1][2], dp[1][1] + dp[2][2] + 1)
+    ...
+    
+when len = 3,
+    i = 0, j = 2, !isPalindrome(0,2), dp[0][2] = 2
+    ...
+
+when len = 4,
+    i = 0, j = 3, s[i] != s[j], dp[0][3] = max(dp[1][3], dp[0][2])
+    i = 1, j = 4, s[i] == s[j], dp[1][4] = dp[2][3] + 2
+
+when len = 5,
+    i = 0, j = 4, !isPalindrome(0,4)
+        k = 0, dp[0][4] = min(dp[0][4], dp[0][0] + dp[1][4] + 1)
+        k = 1, dp[0][4] = min(dp[0][4], dp[0][1] + dp[2][4] + 1)
+        k = 2, dp[0][4] = min(dp[0][4], dp[0][2] + dp[3][4] + 1)
+        k = 3, dp[0][4] = min(dp[0][4], dp[0][3] + dp[4][4] + 1)
 </code></pre>
 
-<p>如果看到Hugo 版本号信息, 那么恭喜你已经成功安装 Hugo.</p>
+<table>
+<thead>
+<tr>
+<th>j</th>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
 
-<h1 id="创建-hugo-site">创建 Hugo site</h1>
+<tbody>
+<tr>
+<td><strong>i</strong></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+</tr>
 
-<p>打开 Terminal, 输入命令行创建第一个hugo site (first_hugo_site), 并进入到site当前目录.</p>
+<tr>
+<td></td>
+<td>1</td>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
 
-<pre><code>&gt; hugo new site first_hugo_site
-&gt; cd first_hugo_site
+<tr>
+<td></td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td></td>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td></td>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>Java code:</p>
+
+<pre><code class="language-java">public int minCut(String s) {
+    if (s == null || s.length() &lt; 2) return 0;
+    int len = s.length();
+    int[][] dp = new int[len][len];
+    for (int i = 0; i &lt; len; i++) {
+      Arrays.fill(dp[i], len + 1);
+      dp[i][i] = 0; // [i,i] is palindome, no need to cut
+    }
+    for (int l = 2; l &lt;= len; l++) {
+      for (int i = 0; i &lt; len - l + 1; i++) {
+        int j = l + i - 1;
+        if (isPalindrome(i, j, s)) dp[i][j] = 0;
+        else {
+          for (int k = i; k &lt; j; k++) {
+            dp[i][j] = Math.min(dp[i][j], 1 + dp[i][k] + dp[k + 1][j]);
+          }
+        }
+      }
+    }
+
+    return dp[0][len - 1];
+  }
+  private boolean isPalindrome(int i , int j, String s) {
+    while (i &lt; j) {
+      if (s.charAt(i++) != s.charAt(j--)) return false;
+    }
+    return true;
+  }
+</code></pre>
+
+<p>Time complexity: <code>O(n ^ 4)</code> - n is the length of input string</p>
+
+<p>Space complexity: <code>O(n ^ 2)</code></p>
+
+<h3 id="approach-2-two-pointers">Approach #2: Two pointers</h3>
+
+<p>reference solution from <a href="https://leetcode.com/problems/palindrome-partitioning-ii/discuss/42213/Easiest-Java-DP-Solution-(97.36)">LC discussion @yavinci</a></p>
+
+<p>From above approach #1, time complexity is too high, we can remember the state of palindrome for <code>substring[i,j]</code></p>
+
+<p>This can be solved by two points:</p>
+
+<p>First point is:</p>
+
+<p><code>cut[i]</code> is the minimum of <code>cut[j - 1] + 1 (j &lt;= i)</code>, if <code>substring[j, i]</code> is palindrome.</p>
+
+<p>If <code>[j, i]</code> is palindrome, <code>[j + 1, i - 1]</code> is palindrome, and <code>c[j] == c[i]</code>.</p>
+
+<p>The 2nd point reminds us of using dp (caching).</p>
+
+<pre><code>a   b   a   |   c  c
+                j  i
+       j-1  |  [j, i] is palindrome
+   cut(j-1) +  1
 
 </code></pre>
 
-<p>到这里, 你已经成功创建了一个空的hugo 静态网页, 对, 就是这么简单&hellip; 现在我们可以加一些主题, 内容, 并让你的网页跑起来.</p>
+<p>Java code:</p>
 
-<h1 id="添加主题-theme">添加主题(theme)</h1>
+<pre><code>public int minCutII(String s) {
+    if (s == null || s.length() &lt; 2) return 0;
+    int len = s.length();
+    int[] cut = new int[len];
+    boolean[][] palindrome = new boolean[len][len];
+    for (int i = 0; i &lt; len; i++) {
+      int min = i;
+      for (int j = 0; j &lt;= i; j++) {
+        if (s.charAt(i) == s.charAt(j) &amp;&amp;
+            ((j + 1 &gt; i - 1) || palindrome[j + 1][i - 1])) {
+          palindrome[j][i] = true;
+          min = j == 0 ? 0 : Math.min(min, cut[j - 1] + 1);
+        }
+      }
+      cut[i] = min;
+    }
+    return cut[len - 1];
+  }
+</code></pre>
 
-<p>你可以到Hugo主题栏, 有很多简洁优美的主题, 挑选一个适合你的吧. Hugo主题在<a href="https://themes.gohugo.io/">这里</a>找到.
-我个人<a href="https://snowan.github.io/">Github Pages</a>用的是<a href="https://themes.gohugo.io/hugo-theme-cleanwhite/">hugo-theme-cleanwhite</a>主题. 接下来的例子中我都会用这个主题来介绍.</p>
+<p>Time complexity: <code>O(n^2)</code></p>
+
+<p>Space complexity:<code>O(n^2)</code></p>
+
+<h2 id="reference">Reference</h2>
 
 <ol>
-<li><p>创建一个Github repo (first_hugo_site), 如果你还没有Github 账号, 可以在<a href="https://github.com/">这里</a>申请一个.
-现在我们有了 first_hugo_site repo, 在当前目录下初始化<code>git</code></p>
-
-<pre><code>first_hugo_site &gt; git init
-</code></pre></li>
-
-<li><p>添加Hugo 主题到你的site, 首先创建一个名为<code>themes</code>文件夹, 然后用 <code>git submodule add ...</code> 添加主题,</p>
-
-<pre><code>first_hugo_site &gt; mkdir themes
-first_hugo_site &gt; git submodule add https://github.com/zhaohuabing/hugo-theme-cleanwhite.git themes/hugo-theme-cleanwhite
-</code></pre></li>
-
-<li><p>在本地 run hugo server,</p>
-
-<pre><code>first_hugo_site &gt; hugo serve -t hugo-theme-cleanwhite
-</code></pre>
-
-<p>现在你应该在<a href="http://localhost:1313/">localhost:1313</a>能看到hugo主题已经up, 如下所示, 然后你可以修改配置(<code>config.toml</code>), customize成你自己的blog页面. 具体如何修改,请参考<a href="https://github.com/zhaohuabing/hugo-theme-cleanwhite/blob/master/README.md#configuration">这里</a>.</p></li>
-</ol>
-
-<p><img src="/img/hugo_site_1.png" alt="alt text" /></p>
-
-<h1 id="deploy">Deploy</h1>
-
-<p>到这里, 我们已经创建好了基本的hugo site, 接下来要deploy hugo site 到Github pages, 这里需要你创建Git repo 来host GitHub pages. 所以你需要2个 Github Repos, 一个repo是 Hugo site, 另一个是用来hold给 github pages 生成的HTML, 进行加载和渲染, 内容可以真正在你的Github pages 上显示.
-两个Git repos: <code>first_hugo_site</code>, <code>&lt;username&gt;.github.io</code> (这个是你的 github pages URL).</p>
-
-<p>新建Git repo, 可以参考<a href="https://help.github.com/en/articles/create-a-repo">这里</a>.</p>
-
-<p>现在我们已经有了两个repos, 接下来我们需要把hugo site 和 github pages 连接起来.</p>
-
-<pre><code>// 添加remote repo
-first_hugo_site &gt; git remote add origin https://github.com/&lt;githubusername&gt;/first_hugo_site.git
-
-// 添加github pages repo as submodule
-first_hugo_site &gt; git submodule add https://github.com/&lt;githubusername&gt;/&lt;githubusername&gt;.github.io.git
-
-// 添加本地所有改动
-first_hugo_site &gt; git add . 
-
-// commit
-first_hugo_site &gt; git commit -m &quot;First commit first hugo site&quot;
-
-// push 本地文件到远程git repo
-first_hugo_site &gt; git push origin master
-</code></pre>
-
-<p>到目前为止, 我们已经成功push 本地改动到远程的 <code>first_hugo_site</code> repo. 我们还需要生成HTML 页面给GitHub Pages 渲染和加载. <code>hugo</code> 会生成文件到<code>public</code>文件夹, 现在我们要修改<code>config.toml</code>, 使得新生成的HTML文件能够发布到submodule <code>&lt;githubusername&gt;.github.io</code> 网站.</p>
-
-<pre><code>first_hugo_site &gt; vim config.toml
-
-  baseurl = &quot;https://&lt;githubusername&gt;.github.io&quot;
-  title = &quot;Your Blog&quot;
-  theme = &quot;hugo-theme-cleanwhite&quot;
-  languageCode = &quot;en-us&quot;
-  # Enable comments by entering your Disqus shortname
-  paginate = 5 #frontpage pagination
-  hasCJKLanguage = true
-  publishDir = &quot;&lt;githubusername&gt;.github.io&quot;
-...
-
-</code></pre>
-
-<ul>
-<li><p><code>baseurl</code> 设置你的blog url, 所有生成的HTML 和内容就会发布到url</p></li>
-
-<li><p><code>publishDir</code> 告诉Hugo 所有新生成的HTML 和内容都要发布到目录下 (在 <code>first_hugo_site</code> 有submodule <code>&lt;githubusername&gt;.github.io</code>)</p></li>
-</ul>
-
-<p>用 <code>hugo</code> 生成HTML和内容到 <code>&lt;githubusername&gt;.github.io</code> submodule,</p>
-
-<pre><code>first_hugo_site &gt; hugo
-</code></pre>
-
-<p>到这里, 已经一切准备就绪, 现在submodule<code>&lt;githubusername&gt;.github.io</code> 已经有生成的HTML, CSS 等内容, 最后一步就是push 到远程的 <code>&lt;githubusername&gt;.github.io</code> repo, 然后你的GitHub pages 就可以上线了.</p>
-
-<pre><code>// 到submodule 目录下
-first_hugo_site &gt; cd &lt;githubusername&gt;.github.io
-
-// 添加所有本地改动
-first_hugo_site/&lt;githubusername&gt;.github.io &gt; git add .
-
-// commit 所有添加的本地修改
-first_hugo_site/&lt;githubusername&gt;.github.io &gt; git commit -m &quot;generate html and content&quot;
-
-// push 到 远程repo
-first_hugo_site/&lt;githubusername&gt;.github.io &gt; git push origin master
-</code></pre>
-
-<p>等一小会(心急吃不热热豆腐, 😁), 去到你的github page 页面, <code>https://&lt;githubusername&gt;.github.io</code>, 现在你应该能看到你的第一个Hugo site (with theme) on Github pages. <a href="https://snowan.github.io/">例子</a> 如下:
-<img src="/img/hugo_site_2.png" alt="alt text" /></p>
-
-<p>到这里你已经成功创建和发布了第一个Hugo site 到Github pages. 接下来让我们一起发布内容到blog.</p>
-
-<h1 id="创建content">创建content</h1>
-
-<p>用hugo, 你可以创建一些内容, 用hugo 命令行</p>
-
-<pre><code>// 会在content文件夹下创建一个 posts 文件夹, ../content/posts/my-first-post.md
-first_hugo_site &gt; hugo new posts/my-first-post.md
-
-// content/posts/content/articles/my-first/article.mds/my-first/article.md
-first_hugo_site &gt; hugo new articles/my-first-article.md
-</code></pre>
-
-<p>以<code>hugo-theme-cleanwhite</code> 主题为例, 写一个<code>md</code>例子</p>
-
-<pre><code>first_hugo_site &gt; hugo new posts/hello-world.md
-first_hugo_site &gt; vim hello-world.md
-  ---
-  layout: post
-  title:       &quot;Snowan Hello World post&quot;
-  subtitle:    &quot;&quot;
-  description: &quot;&quot;
-  date:        2019-06-03
-  author:      &quot;Snowan&quot;
-  image:       &quot;&quot;
-  ---
-
-  ### Hello World!
-
-  &gt; &quot;Yeah, Snowan blog is on!!&quot;
-
-  Snowan First blog...
-
-</code></pre>
-
-<p><img src="/img/hugo_site_3.png" alt="alt text" /></p>
-
-<p>如果大家有问题, 可以在<a href="https://snowan.github.io">我的blog</a>下留言,</p>
-
-<p>或者是在<a href="https://github.com/snowan">Github</a> 上follow 我 (😁),</p>
-
-<p>或者是我的<a href="https://twitter.com/Ivy_snowan">Twitter</a>,</p>
-
-<p>或者<a href="https://m.weibo.cn/profile/2757041957">微博</a></p>
-
-<h1 id="reference">Reference</h1>
-
-<ol>
-<li><a href="https://inside.getambassador.com/creating-and-deploying-your-first-hugo-site-to-github-pages-1e1f496cf88d">Creating and deploying your first Hugo site to Github pages</a></li>
-<li><a href="https://discourse.gohugo.io/t/hugo-101-slowstart-for-beginners/18383">Hugo 101: Slowstart for beginners</a></li>
-<li><a href="https://gohugo.io/getting-started/quick-start/">Hugo quick start</a></li>
-<li><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#step-by-step-instructions">Hosting on Github step by step guid</a>
-
-<br /></li>
+<li><a href="https://leetcode.com/problems/palindrome-partitioning-ii/">Leetcode 132 Palindrome Partitioning II</a></li>
+<li><a href="https://leetcode.com/problems/palindrome-partitioning-ii/discuss/42213/Easiest-Java-DP-Solution-(97.36)">LC discussion @yavinci</a></li>
 </ol>
 
 
@@ -449,15 +491,10 @@ first_hugo_site &gt; vim hello-world.md
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/mysql-unique-index/" data-toggle="tooltip" data-placement="top" title="MySQL Index: Unique Index">&larr;
+                        <a href="/post/lc792/" data-toggle="tooltip" data-placement="top" title="Leetcode 792 Number of Matching Subsequences 的解题报告">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/lc792/" data-toggle="tooltip" data-placement="top" title="Leetcode 792 Number of Matching Subsequences 的解题报告">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
