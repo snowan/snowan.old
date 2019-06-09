@@ -9,6 +9,12 @@
   </url>
   
   <url>
+    <loc>https://snowan.github.io/tags/leetcode/</loc>
+    <lastmod>2019-06-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://snowan.github.io/post/lc149/</loc>
     <lastmod>2019-06-08T00:00:00+00:00</lastmod>
   </url>
@@ -33,12 +39,6 @@
   
   <url>
     <loc>https://snowan.github.io/categories/tech/</loc>
-    <lastmod>2019-06-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://snowan.github.io/tags/leetcode/</loc>
     <lastmod>2019-06-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
