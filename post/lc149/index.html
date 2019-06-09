@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
-    <meta property="og:title" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
-    <meta property="twitter:title" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
+    <meta name="title" content="Leetcode 149 Max Points on a Line解题报告" />
+    <meta property="og:title" content="Leetcode 149 Max Points on a Line解题报告" />
+    <meta property="twitter:title" content="Leetcode 149 Max Points on a Line解题报告" />
     
 
     
-    <meta name="description" content="Leetcode 132 Palindrome Partitioning II 解题报告">
-    <meta property="og:description" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
-    <meta property="twitter:description" content="Leetcode 132 Palindrome Partitioning II 解题报告" />
+    <meta name="description" content="Leetcode 149 Max Points on a Line解题报告">
+    <meta property="og:description" content="Leetcode 149 Max Points on a Line解题报告" />
+    <meta property="twitter:description" content="Leetcode 149 Max Points on a Line解题报告" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Leetcode 132 Palindrome Partitioning II 解题报告-Snowan Blog</title>
+    <title>Leetcode 149 Max Points on a Line解题报告-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/lc132/">
+    <link rel="canonical" href="/post/lc149/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_25.JPG')
+        background-image: url('/img/bg_7.JPG')
     }
 </style>
 <header class="intro-header">
@@ -160,20 +160,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/leetcode" title="Leetcode">
-                            Leetcode
+                        <a class="tag" href="/tags/leetcode" title="leetcode">
+                            leetcode
                         </a>
                         
-                        <a class="tag" href="/tags/dynamic-programing" title="Dynamic programing">
-                            Dynamic programing
-                        </a>
-                        
-                        <a class="tag" href="/tags/two-pointer" title="Two pointer">
-                            Two pointer
+                        <a class="tag" href="/tags/math" title="math">
+                            math
                         </a>
                         
                     </div>
-                    <h1>Leetcode 132 Palindrome Partitioning II 解题报告</h1>
+                    <h1>Leetcode 149 Max Points on a Line解题报告</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -181,7 +177,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Wednesday, June 5, 2019
+			Saturday, June 8, 2019
                         
                     </span>
                 </div>
@@ -209,14 +205,10 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#leetcode-132-palindrome-partitioning-ii-解题报告">Leetcode 132 Palindrome Partitioning II 解题报告</a>
+<li><a href="#leetcode-149-max-points-on-a-line解题报告">Leetcode 149 Max Points on a Line解题报告</a>
 <ul>
-<li><a href="#question">Question:</a></li>
-<li><a href="#solution">Solution:</a>
-<ul>
-<li><a href="#approach-1-dp">Approach #1: DP</a></li>
-<li><a href="#approach-2-two-pointers">Approach #2: Two pointers</a></li>
-</ul></li>
+<li><a href="#problem-https-leetcode-com-problems-max-points-on-a-line"><a href="https://leetcode.com/problems/max-points-on-a-line/">Problem</a></a></li>
+<li><a href="#solution">Solution:</a></li>
 <li><a href="#reference">Reference</a></li>
 </ul></li>
 </ul>
@@ -224,224 +216,219 @@
                 
                 
 
-<h1 id="leetcode-132-palindrome-partitioning-ii-解题报告">Leetcode 132 Palindrome Partitioning II 解题报告</h1>
+<h1 id="leetcode-149-max-points-on-a-line解题报告">Leetcode 149 Max Points on a Line解题报告</h1>
 
-<h2 id="question">Question:</h2>
+<h2 id="problem-https-leetcode-com-problems-max-points-on-a-line"><a href="https://leetcode.com/problems/max-points-on-a-line/">Problem</a></h2>
 
-<p>Given a string s, partition s such that every substring of the partition is a palindrome.</p>
+<p>Given <code>n</code> points on a 2D plane, find the maximum number of points that lie on the same straight line.</p>
 
-<p>Return the minimum cuts needed for a palindrome partitioning of s.</p>
+<pre><code>Example 1:
 
-<pre><code>Example:
+Input: [[1,1],[2,2],[3,3]]
+Output: 3
+Explanation:
+^
+|
+|        o
+|     o
+|  o  
++-------------&gt;
+0  1  2  3  4
+Example 2:
 
-Input: &quot;aab&quot;
-Output: 1
-Explanation: The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.
+Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+Output: 4
+Explanation:
+^
+|
+|  o
+|     o        o
+|        o
+|  o        o
++-------------------&gt;
+0  1  2  3  4  5  6
 </code></pre>
+
+<p><strong>NOTE</strong>:</p>
+
+<p>input types have been changed on April 15, 2019.</p>
+
+<p>Please reset to default code definition to get new method signature.</p>
+
+<p>题意:</p>
+
+<p>一个平面上给一堆点, 求最多点在一条直线上, 返回最多点的个数.</p>
 
 <h2 id="solution">Solution:</h2>
 
-<h3 id="approach-1-dp">Approach #1: DP</h3>
+<p>思路:</p>
 
-<p><code>dp[i][j]</code> - min cut substring from <code>i</code> to <code>j</code></p>
+<p>要求最多点在一条直线上,那么一条直线上的点的特征是斜率相同,一条直线上任意两点的斜率相同, 任意两点可以构成一条直线,即转化为相同斜率最多有多少个点,这里可以用<code>Map</code>, <code>key</code> 是斜率, <code>value</code> 是相同斜率的点个数.</p>
 
-<p>init(初始化DP):</p>
-
-<p><code>dp[i][i] = 0</code>, since <code>substring[i,i]</code> is palindrome, no need to cut</p>
-
-<p>and <code>dp[i][j] = len + 1</code></p>
-
-<p>transition(状态转移方程):</p>
-
-<p>when substring[i,j] is palindrome, <code>dp[i][j] = 0</code></p>
-
-<p>otherwise <code>dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] + 1) (i &lt;= k &lt; j)</code>,</p>
-
-<p>return <code>dp[0][len-1]</code></p>
-
-<p>for example: &ldquo;abcbd&rdquo;</p>
-
-<p><code>len = 5</code>, <code>dp[5][5]</code>, fill <code>dp[i][j] = len + 1</code></p>
-
-<pre><code>when len = 1, 
-    dp[i][i] = 0, no need to cut
-when len = 2, 
-    i = 0, j = 1, !isPalindrome(0,1), dp[0][1] = 1
-    i = 1, j = 2, !isPalindrome(0,1), dp[1][2] = min(dp[1][2], dp[1][1] + dp[2][2] + 1)
-    ...
-    
-when len = 3,
-    i = 0, j = 2, !isPalindrome(0,2), dp[0][2] = 2
-    ...
-
-when len = 4,
-    i = 0, j = 3, s[i] != s[j], dp[0][3] = max(dp[1][3], dp[0][2])
-    i = 1, j = 4, s[i] == s[j], dp[1][4] = dp[2][3] + 2
-
-when len = 5,
-    i = 0, j = 4, !isPalindrome(0,4)
-        k = 0, dp[0][4] = min(dp[0][4], dp[0][0] + dp[1][4] + 1)
-        k = 1, dp[0][4] = min(dp[0][4], dp[0][1] + dp[2][4] + 1)
-        k = 2, dp[0][4] = min(dp[0][4], dp[0][2] + dp[3][4] + 1)
-        k = 3, dp[0][4] = min(dp[0][4], dp[0][3] + dp[4][4] + 1)
+<pre><code>斜率 (slop): slop = ∆y/∆x.
+任意两点: p1(x1,y1), p2(x2,y2)
+slop = (y2-y1)/(x2-x1)
 </code></pre>
 
-<table>
-<thead>
-<tr>
-<th>j</th>
-<th></th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
+<p>在一堆点中, 从<code>index i</code>点开始, 计算所有从<code>index i+1</code>开始点开始点与<code>index i</code>点的斜率,在<code>java</code>中,<code>double</code>类型的精度不是很准确, 所以这里用<code>string(∆y/∆x)</code>作为<code>map key</code>, 点的个数作为<code>value</code>, 为了<code>slop</code>相同,求<code>∆x,∆y</code>的最大公约数,这样相同斜率的 <code>∆y/∆x</code>才能保持一致. 举个例子,数学计算结果 <code>6/4 = 3/2</code>, 但是<code>String &quot;6/4&quot; != &quot;3/2&quot;</code>.</p>
 
-<tbody>
-<tr>
-<td><strong>i</strong></td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>2</td>
-</tr>
+<p>如下图:
+<img src="/img/lc149.png" alt="alt text" /></p>
 
-<tr>
-<td></td>
-<td>1</td>
-<td></td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
+<p>在计算斜率的时候, 需要注意当<code>∆x = 0</code>的两个情况:</p>
 
-<tr>
-<td></td>
-<td>2</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-</tr>
+<pre><code>p1(x1,y1), p2(x2,y2)
+∆x = x2-x1, ∆y=y2-y1
+1. ∆x = 0, ∆y = 0, 相同点(dups)
+2. ∆x = 0, ∆y != 0, 直线跟y轴平行(yline)
+</code></pre>
 
-<tr>
-<td></td>
-<td>3</td>
-<td></td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>1</td>
-</tr>
+<p>分别计算相同点和跟<code>y</code>轴平行的直线上的点个数, 最后比较当前点,最多点个数的时候,比较相同点+不同斜率的点个数,<code>y</code>轴平行的直线上的点个数+相同点,和当前最多点个数.</p>
 
-<tr>
-<td></td>
-<td>4</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
+<pre><code>max = Max(max, Max(dups+map.get(slop), dups+yline));
+</code></pre>
+
+<p>为什么从<code>index i+1</code>开始计算, 不是从<code>index 0</code> 开始呢? 仔细想想, 已经算过<code>index i-1</code>的点跟<code>index i</code>的点之间的斜率, 如果最大值在这条斜率上,那么已经记录了,所以没有必要重复计算.</p>
+
+<p>例如:</p>
+
+<pre><code>例子给顶点: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+^
+|
+|  o
+|     o        o
+|        o
+|  o        o
++-------------------&gt;
+0  1  2  3  4  5  6
+
+Map&lt;String, Integer&gt; map - key是斜率, value是个数
+max = 1;
+dup = 0;
+yline = 0;
+
+i = 0, p1=[1,1]
+  j = 1, p2=[3,2], gcd(∆x,∆y) = 1, ∆x=2/1, ∆y=1/1, slop = &quot;1/2&quot;, map={[&quot;1/2&quot;, 1]}, max = 1
+  j = 2, p2=[5,3], gcd(∆x,∆y) = 2, ∆x=4/2, ∆y=2/2, slop = &quot;1/2&quot;, map={[&quot;1/2&quot;, 2]}, max = 2
+  j = 3, p2=[4,1], gcd(∆x,∆y) = 3, ∆x=3/3, ∆y=0/2, slop = &quot;0/1&quot;, map={[&quot;1/2&quot;, 2],[&quot;0/1&quot;, 1]}, max = 2
+  j = 4, p2=[2,3], gcd(∆x,∆y) = 1, ∆x=1/1, ∆y=2/1, slop = &quot;2/1&quot;, map={[&quot;1/2&quot;, 2],[&quot;0/1&quot;, 1],[&quot;2/1&quot;, 1]}, max = 2
+  j = 5, p2=[1,4], ∆x=0, ∆y=3, yline = 1, map={[&quot;1/2&quot;, 2],[&quot;0/1&quot;, 1]}, max = 2
+
+i = 1, p1=[3,2]
+  j = 2, p2=[5,3], ∆x=2, ∆y=1, slop = &quot;1/2&quot;, map={[&quot;1/2&quot;, 1]}, max = 2
+  j = 3, p2=[4,1], ∆x=1/-1, ∆y=-1/-1, slop = &quot;1/-1&quot;, map={[&quot;1/2&quot;, 1],[&quot;1/-1&quot;, 1]}, max = 2
+  j = 4, p2=[2,3], ∆x=-1/1, ∆y=1/1, slop = &quot;1/-1&quot;, map={[&quot;1/2&quot;, 1],[&quot;1/-1&quot;, 2]}, max = 3
+  j = 5, p2=[1,4], ∆x=-2/2, ∆y=2/2, slop = &quot;1/-1 map={[&quot;1/2&quot;, 1],[&quot;1/-1],3}, max = 4
+
+
+i = 2, p1=[5,3]
+  j = 3, p2=[4,1], ∆x=-1/-1, ∆y=-2/-1, slop = &quot;1/2&quot;, map={[&quot;1/2&quot;, 1]}, max = 4
+  j = 4, p2=[2,3], ∆x=-3, ∆y=0, slop = &quot;0/-3&quot;, map={[&quot;1/2&quot;, 1],[&quot;0/-3&quot;, 1]}, max = 4
+  j = 5, p2=[1,4], ∆x=-4, ∆y=1, map={[&quot;1/2&quot;, 2],[&quot;0/-3&quot;, 1],[&quot;1/-4&quot;, 1]}, max = 4
+
+i = 3, p1=[4,1]
+  j = 4, p2=[2,3], gcd(∆x,∆y) = 2, ∆x=-2/2, ∆y=2/2, slop = &quot;-1/1&quot;, map={[&quot;-1/1&quot;, 1]}, max = 4
+  j = 5, p2=[1,4], ∆x=-3, ∆y=3,  map={[&quot;1/1&quot;, 2]}, max = 4
+
+i = 4, p1=[2,3]
+  j = 5, p2=[1,4], ∆x=-1, ∆y=1, map={[&quot;-1/1&quot;, 1]}, max = 4
+
+</code></pre>
+
+<p><strong>时间复杂度</strong>: <code>O(n*n) - n 是points的个数</code></p>
+
+<p><strong>空间复杂度</strong>: <code>O(n) - n个点最多可以有n-1条直线</code></p>
 
 <p>Java code:</p>
 
-<pre><code class="language-java">public int minCut(String s) {
-    if (s == null || s.length() &lt; 2) return 0;
-    int len = s.length();
-    int[][] dp = new int[len][len];
+<pre><code class="language-java">public int maxPoints(int[][] points) {
+    if (points == null) return 0;
+    int len = points.length;
+    if (len &lt; 2) return len;
+    int res = 0;
+    Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
     for (int i = 0; i &lt; len; i++) {
-      Arrays.fill(dp[i], len + 1);
-      dp[i][i] = 0; // [i,i] is palindome, no need to cut
-    }
-    for (int l = 2; l &lt;= len; l++) {
-      for (int i = 0; i &lt; len - l + 1; i++) {
-        int j = l + i - 1;
-        if (isPalindrome(i, j, s)) dp[i][j] = 0;
-        else {
-          for (int k = i; k &lt; j; k++) {
-            dp[i][j] = Math.min(dp[i][j], 1 + dp[i][k] + dp[k + 1][j]);
-          }
+      map.clear();
+      int currMax = 0;
+      // number duplicate points
+      int dup = 1;
+      int[] x = points[i];
+      // number points in vertical line
+      int line = 0;
+      for (int j = i + 1; j &lt; len; j++) {
+        int[] y = points[j];
+        if (x[0] == y[0] &amp;&amp; x[1] == y[1]) {
+          dup++;
+          continue;
         }
-      }
-    }
-
-    return dp[0][len - 1];
-  }
-  private boolean isPalindrome(int i , int j, String s) {
-    while (i &lt; j) {
-      if (s.charAt(i++) != s.charAt(j--)) return false;
-    }
-    return true;
-  }
-</code></pre>
-
-<p>Time complexity: <code>O(n ^ 4)</code> - n is the length of input string</p>
-
-<p>Space complexity: <code>O(n ^ 2)</code></p>
-
-<h3 id="approach-2-two-pointers">Approach #2: Two pointers</h3>
-
-<p>reference solution from <a href="https://leetcode.com/problems/palindrome-partitioning-ii/discuss/42213/Easiest-Java-DP-Solution-(97.36)">LC discussion @yavinci</a></p>
-
-<p>From above approach #1, time complexity is too high, we can remember the state of palindrome for <code>substring[i,j]</code></p>
-
-<p>This can be solved by two points:</p>
-
-<p>First point is:</p>
-
-<p><code>cut[i]</code> is the minimum of <code>cut[j - 1] + 1 (j &lt;= i)</code>, if <code>substring[j, i]</code> is palindrome.</p>
-
-<p>If <code>[j, i]</code> is palindrome, <code>[j + 1, i - 1]</code> is palindrome, and <code>c[j] == c[i]</code>.</p>
-
-<p>The 2nd point reminds us of using dp (caching).</p>
-
-<pre><code>a   b   a   |   c  c
-                j  i
-       j-1  |  [j, i] is palindrome
-   cut(j-1) +  1
-
-</code></pre>
-
-<p>Java code:</p>
-
-<pre><code>public int minCutII(String s) {
-    if (s == null || s.length() &lt; 2) return 0;
-    int len = s.length();
-    int[] cut = new int[len];
-    boolean[][] palindrome = new boolean[len][len];
-    for (int i = 0; i &lt; len; i++) {
-      int min = i;
-      for (int j = 0; j &lt;= i; j++) {
-        if (s.charAt(i) == s.charAt(j) &amp;&amp;
-            ((j + 1 &gt; i - 1) || palindrome[j + 1][i - 1])) {
-          palindrome[j][i] = true;
-          min = j == 0 ? 0 : Math.min(min, cut[j - 1] + 1);
+        if (x[0] == y[0]) {
+          line++;
+          continue;
         }
+        int deltaX = x[0] - y[0];
+        int deltaY = x[1] - y[1];
+        int gcd = getGcd(deltaX, deltaY);
+        deltaX /= gcd;
+        deltaY /= gcd;
+        String slop =  deltaY + &quot;/&quot; + deltaX;
+        map.put(slop, map.getOrDefault(slop, 0) + 1);
+        currMax = Math.max(currMax, map.get(slop));
       }
-      cut[i] = min;
+      res = Math.max(res, Math.max(dup + currMax, line + dup));
     }
-    return cut[len - 1];
+    return res;
+  }
+
+  private int getGcd(int x, int y) {
+    if (y == 0) return x;
+    return getGcd(y, x % y);
   }
 </code></pre>
 
-<p>Time complexity: <code>O(n^2)</code></p>
+<p>Python code (谢谢 <a href="https://github.com/sunboman">sunboman</a> Contribute. :-) )</p>
 
-<p>Space complexity:<code>O(n^2)</code></p>
+<pre><code class="language-python">import collections
+import functools
+import sys
+from typing import List
+from math import gcd
+
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -&gt; int:
+        if not points:
+            return 0
+        res = 0
+        for i, point in enumerate(points):
+            dup = 1
+            slope_count = collections.defaultdict(int, {None: 0})
+            for j in range(i + 1, len(points)):
+                point2 = points[j]
+                if point2 == point:
+                    dup += 1
+                    continue
+                dx = point2[0] - point[0]
+                dy = point2[1] - point[1]
+                if dx == 0:
+                    slope = sys.maxsize
+                elif dy == 0:
+                    slope = 0
+                else:
+                    g = gcd(abs(dy), abs(dx))
+                    slope = '{}-{}-{}'.format((dx &gt; 0) is (dy &gt; 0), abs(dy) / g, abs(dx) / g)
+                slope_count[slope] += 1
+            print(slope_count)
+            res = max([res] + [(dup + count)
+                               for count in slope_count.values()])
+        return res
+
+</code></pre>
 
 <h2 id="reference">Reference</h2>
 
 <ol>
-<li><a href="https://leetcode.com/problems/palindrome-partitioning-ii/">Leetcode 132 Palindrome Partitioning II</a></li>
-<li><a href="https://leetcode.com/problems/palindrome-partitioning-ii/discuss/42213/Easiest-Java-DP-Solution-(97.36)">LC discussion @yavinci</a></li>
+<li><a href="https://leetcode.com/problems/max-points-on-a-line/">Leetcode 149 Problem</a></li>
+<li><a href="https://github.com/snowan/interviews/blob/master/java/src/leetcode/math/LC149/LC149MaxPointsInLine.java">Leetcode Java solution</a></li>
+<li><a href="https://github.com/snowan/interviews/blob/master/python/leetcode/LC149/maxPoints.py">Leetcode Python solution</a></li>
 </ol>
 
 
@@ -491,15 +478,10 @@ when len = 5,
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/lc792/" data-toggle="tooltip" data-placement="top" title="Leetcode 792 Number of Matching Subsequences 的解题报告">&larr;
+                        <a href="/post/lc132/" data-toggle="tooltip" data-placement="top" title="Leetcode 132 Palindrome Partitioning II 解题报告">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/lc149/" data-toggle="tooltip" data-placement="top" title="Leetcode 149 Max Points on a Line解题报告">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

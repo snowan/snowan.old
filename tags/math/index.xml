@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>math on Snowan Blog</title>
+    <link>https://snowan.github.io/tags/math/</link>
+    <description>Recent content in math on Snowan Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://snowan.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Leetcode 149 Max Points on a Line解题报告</title>
+      <link>https://snowan.github.io/post/lc149/</link>
+      <pubDate>Sat, 08 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/lc149/</guid>
+      <description>Leetcode 149 Max Points on a Line解题报告 Problem Given n points on a 2D plane, find the maximum number of points that lie on the same straight line. Example 1: Input: [[1,1],[2,2],[3,3]] Output: 3 Explanation: ^ | | o | o | o +-------------&amp;gt; 0 1 2 3 4 Example 2: Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]] Output: 4 Explanation: ^ | | o | o o</description>
+    </item>
+    
+  </channel>
+</rss>
