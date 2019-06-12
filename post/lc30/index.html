@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="MySQL Index: Unique Index" />
-    <meta property="og:title" content="MySQL Index: Unique Index" />
-    <meta property="twitter:title" content="MySQL Index: Unique Index" />
+    <meta name="title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
+    <meta property="og:title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
+    <meta property="twitter:title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
     
 
     
-    <meta name="description" content="Introduce MySql Unique Index">
-    <meta property="og:description" content="Introduce MySql Unique Index" />
-    <meta property="twitter:description" content="Introduce MySql Unique Index" />
+    <meta name="description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析">
+    <meta property="og:description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析" />
+    <meta property="twitter:description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>MySQL Index: Unique Index-Snowan Blog</title>
+    <title>Leetcode 30 Substring with Concatenation of All Words 解题报告-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/mysql-unique-index/">
+    <link rel="canonical" href="/post/lc30/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_3.jpeg')
+        background-image: url('/img/bg_22.JPG')
     }
 </style>
 <header class="intro-header">
@@ -160,12 +160,20 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/mysql" title="MySql">
-                            MySql
+                        <a class="tag" href="/tags/leetcode" title="leetcode">
+                            leetcode
+                        </a>
+                        
+                        <a class="tag" href="/tags/twopointers" title="twopointers">
+                            twopointers
+                        </a>
+                        
+                        <a class="tag" href="/tags/hashmap" title="Hashmap">
+                            Hashmap
                         </a>
                         
                     </div>
-                    <h1>MySQL Index: Unique Index</h1>
+                    <h1>Leetcode 30 Substring with Concatenation of All Words 解题报告</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -173,7 +181,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Sunday, June 2, 2019
+			Tuesday, June 11, 2019
                         
                     </span>
                 </div>
@@ -201,181 +209,251 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#mysql-index-unique-index">MySQL index: Unique Index</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#leetcode-30-substring-with-concatenation-of-all-words-解题报告">Leetcode 30 Substring with Concatenation of All Words 解题报告</a>
+<ul>
+<li><a href="#题目-problem">题目 (Problem)</a></li>
+<li><a href="#解法-solution">解法 (Solution)</a>
+<ul>
+<li><a href="#解法一">解法一</a></li>
+<li><a href="#解法二">解法二</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="mysql-index-unique-index">MySQL index: Unique Index</h1>
+<h1 id="leetcode-30-substring-with-concatenation-of-all-words-解题报告">Leetcode 30 Substring with Concatenation of All Words 解题报告</h1>
 
-<hr />
+<h2 id="题目-problem">题目 (Problem)</h2>
+
+<p>You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.</p>
+
+<pre><code>Example 1:
+Input:
+  s = &quot;barfoothefoobarman&quot;,
+  words = [&quot;foo&quot;,&quot;bar&quot;]
+Output: [0,9]
+Explanation: Substrings starting at index 0 and 9 are &quot;barfoor&quot; and &quot;foobar&quot; respectively.
+The output order does not matter, returning [9,0] is fine too.
+
+Example 2:
+Input:
+  s = &quot;wordgoodgoodgoodbestword&quot;,
+  words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]
+Output: []
+</code></pre>
+
+<p>题意: 给定一个字符串(String s), 给定n个单词组成的字符串数组(String[] words), 找出所有子串(substring)的起始下标(start index), 使得该子串包含所有的单词, 每个单词的个数也要相同(子串中单词顺序任意).</p>
+
+<h2 id="解法-solution">解法 (Solution)</h2>
+
+<h3 id="解法一">解法一</h3>
+
+<p>先简单,直接,暴力的解 (暴力出奇迹, 😄).</p>
+
+<p>遍历字符<code>s</code>,判断每个子串是匹配字符串数组中所有单词, 如果匹配, 记录下标 (<code>index</code>), 条件中每个单词的长度是相同的, 所以从当前下标, 可以很快得到单词长度的子串并进行比较.</p>
+
+<p>由于不考虑顺序,这里可以用<code>Hashmap</code>先保存所有单词,并记录单词出现的次数. <code>Map&lt;Key, Value&gt;</code>- <code>key</code> 是单词, <code>value</code> 是单词的个数.</p>
+
+<p>遍历字符<code>s</code>的时候,扫描并记录子串的单词和单词个数,用另一个<code>HashMap</code>保存, (<code>key</code> 是当前子串的单词, <code>value</code> 是当前子串单词出现的个数), 并与单词数组中单词和单词出现个数比较,</p>
 
 <ol>
-<li>What is Unique Index?</li>
+<li>如果当前单词不在单词数组中,那么以当前字符开头的子串不可能满足情况, 提前结束, 往后移动到下一个字符的子串.</li>
+<li>如果当前单词个数超过单词数组, 也不可能满足, 结束, 往后移动到下一个</li>
+<li>满足的单词的数量(<code>count</code>)加<code>1</code>.</li>
+<li>比较满足的单词数量<code>(count == wordNum)</code>, 满足, 记录下当前下标(<code>index</code>), 移动到下一个字符</li>
+<li>每次移动第二个HashMap清空, 重新计算</li>
 </ol>
 
-<p>In MySql, if we want to enfore uniqueness column or keys, we usually use <a href="https://dev.mysql.com/doc/refman/5.6/en/primary-key-optimization.html">Primary Key</a> constraints, but one table only can have one PK. Luckily, in MySQL, it allowed to add multiple unique columns using <code>UNIQUE ()</code>, for example:</p>
+<p>例子:</p>
 
-<pre><code>CREATE TABLE user(
-  id int NOT NULL AUTO PRIMAEY KEY,
-  name varchar(50),
-  username varchar(50),
-  phone varchar(50) NOT NULL,
-  email varchar(100) NOT NULL,
-  UNIQUE (email)
-);
+<pre><code>s = &quot;barfoothefoobarman&quot;
+words = [&quot;foo&quot;, &quot;bar&quot;]
+单词长度: wordLen = 3
+单词个数: wordNum = 2
+字符串长度: len = 17
+
+Words Map = {[foo:1], [bar:1]}
+i=0
+    子串 Map = {}
+    | b a r f o o t h e f o o b a r m a n 
+    当前子串: &quot;barfoo&quot;, 满足条件, res=[0]
+i=1
+    子串 Map = {}
+    b | a r f o o t h e f o o b a r m a n 
+    当前子串: &quot;arfoot&quot;, 不满足条件, 退出, 移到下一个, res=[0] 
+i=2
+    子串 Map = {}
+    b a | r f o o t h e f o o b a r m a n 
+    当前子串: &quot;rfooth&quot;, 不满足条件, 退出, 移到下一个, res=[0]
+.
+.
+.
+i=9
+    子串 Map = {}
+    b a r f o o t h e | f o o b a r m a n 
+    当前子串: &quot;foobar&quot;, 满足条件, res=[0, 9] 
+.
+.
+.
+i=13, 退出, 剩余子串长度不满足. res=[0, 9]
 </code></pre>
 
-<p>If you already created a table, and can use <code>ALTER</code> create <code>UNIQUE</code> key.</p>
+<p><em>时间复杂度(TC)</em>: <code>O(n * m) - n是s的长度, m是单词(words)的个数</code>.</p>
 
-<pre><code>ALTER TABLE user
-ADD UNIQUE (email);
+<p><em>空间复杂度(SC)</em>: <code>O(m)</code></p>
+
+<p>Java code:</p>
+
+<pre><code class="language-java">public List&lt;Integer&gt; findSubstring(String s, String[] words) {
+    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+    if (s == null || words == null || s.length() &lt; words.length || words.length == 0) return res;
+    Map&lt;String, Integer&gt; wordsMap = new HashMap&lt;&gt;();
+    for (String w : words) {
+      wordsMap.put(w, wordsMap.getOrDefault(w, 0) + 1);
+    }
+    int len = s.length();
+    int wordNum = words.length;
+    int wordLen = words[0].length();
+    if (len &lt; wordNum * wordLen) return res;
+    for (int i = 0; i &lt; len - wordNum * wordLen + 1; i++) {
+      Map&lt;String, Integer&gt; subMap = new HashMap&lt;&gt;();
+      int currCount = 0;
+      while (currCount &lt; wordNum) {
+        String currWord = s.substring(currCount * wordLen + i, (currCount + 1) * wordLen + i);
+        if (!wordsMap.containsKey(currWord)) break;
+        subMap.put(currWord, subMap.getOrDefault(currWord, 0) + 1);
+        if (subMap.get(currWord) &gt; wordsMap.get(currWord)) break;
+        currCount++;
+      }
+      if (currCount == wordNum) {
+        res.add(i);
+      }
+    }
+    return res;
+  }
+
 </code></pre>
 
-<p>You can check index use <code>show indexes from user;</code>
-<img src="/img/mysql_unique_index_1.png" alt="alt text" />
-If you want a combination of UNIQUE key, use constraint, for example,
-we want user name and phone be unique, add combination of name and phone as unique key.</p>
+<h3 id="解法二">解法二</h3>
 
-<p>Before we add combination Unique key, we need to check whether there is MySQL violations, if we want to add <code>username</code> and <code>phone</code> as combination unique, we need to check whether <code>username</code> and <code>phone</code> has duplications in DB, if yes, when add unique key, MySQL will prevent adding the new constraint. In order to add new constraint, remove duplicates.</p>
+<p>参考大神<a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13656/An-O(N)-solution-with-detailed-explanation">shichaotan
+的解法</a></p>
 
-<pre><code>alter table test add unique name_phone (username, phone);
-</code></pre>
+<p>解法一中,我们每次移动一个字符(<code>char</code>), 这样就造成了很多不必要的重复计算. 在解法二中,每次移动一个单词(<code>word</code>), 这样可以以word长度分类移动, 例如: <code>word</code>长度为<code>3</code>, 那么就可以分为<code>3</code>类来移动.</p>
+
+<p>例子如下图, 对于单词(<code>word</code>)长度为<code>3</code>, 分为 <code>i = 0, i = 1, i = 2</code> 三类移动单词的距离.</p>
+
+<p><img src="/img/lc30_01.png" alt="alt text" /></p>
+
+<p><img src="/img/lc30_02.png" alt="alt text" /></p>
+
+<p><img src="/img/lc30_03.png" alt="alt text" /></p>
+
+<p>从例子中,我们可以发现,按单词(<code>word</code>)移动,在解法一中,考虑了三种情况,那么解法二可以针对这三点进行优化:</p>
 
 <ol>
-<li>Why need Unique Index?</li>
+<li>当面单词不满足(不在给定单词数组(<code>words</code>)中).</li>
+<li>当面单词出现在单词数组(<code>words</code>)中,但个数超过给定的个数</li>
+<li>往后移动的过程,不需要每次都清空<code>HashMap</code>, 造成重复计算, 浪费资源.</li>
 </ol>
 
-<p>Now we know how to add <code>UNIQUE</code> constraints, what is the benefits adding them.</p>
+<p>对于1中单词不满足了, 可以略过(skip)掉不满足的这个单词前面所有的移动, 直接移动到下一个单词. 例如:
+<img src="/img/lc30_2.png" alt="alt text" /></p>
 
-<p>If without <code>UNIQUE</code> constraint, in MySQL table, we can have multiple duplicates values, which is not we wanted, so by adding <code>UNIQUE</code> indexes, it will help to prevent dup values. for example, above, we added <code>username</code> and <code>phone</code> as <code>UNIQUE</code> index, so if we add the same value twice, it will cause error, value already exists.</p>
+<p>对于2中单词满足, 但是个数超过给定个数的情况,
+<img src="/img/c30_1.png" alt="alt text" /></p>
 
-<p>For example:</p>
+<p>这样就不需要每次移动都清空 <code>HashMap</code>, 而是当单词不满足的情况下, 清空<code>HashMap</code> 即可.</p>
 
-<p>Let&rsquo;s insert one row with email <code>xx@test.com</code></p>
+<p>相较于解法一中, 每次移动一个字符都需要清空<code>HashMap</code>,节省很多时间的计算</p>
 
-<pre><code>insert into user (email) value (&quot;xx@test.com&quot;);
+<p><em>时间复杂度(TC)</em>: <code>O</code>(n) - n 为 S 的长度`</p>
+
+<p><em>空间复杂度(SC)</em>: <code>O(m) - m 为单词个数</code></p>
+
+<p><code>Java</code> code:</p>
+
+<pre><code class="language-java">public static List&lt;Integer&gt; findSubstring2(String s, String[] words) {
+    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+    if (s == null || words == null || s.length() &lt; words.length || words.length == 0) return res;
+    final Map&lt;String, Integer&gt; wordsMap = new HashMap&lt;&gt;();
+    for (final String word : words) {
+      wordsMap.put(word, wordsMap.getOrDefault(word, 0) + 1);
+    }
+    final int len = s.length();
+    final int wordNum = words.length;
+    final int wordLen = words[0].length();
+    for (int i = 0; i &lt; wordLen; i++) {
+      int l = i, count = 0;
+      final Map&lt;String, Integer&gt; subMap = new HashMap&lt;&gt;();
+      for (int r = i; r &lt;= len - wordLen; r += wordLen) {
+        final String word = s.substring(r, r + wordLen);
+        // 1. 不满足条件,直接跳到单词后面, 清空map
+        if (!wordsMap.containsKey(word)) {
+          subMap.clear();
+          count = 0;
+          l = r + wordLen;
+          continue;
+        }
+        subMap.put(word, subMap.getOrDefault(word, 0) + 1);
+        if (subMap.get(word) &lt;= wordsMap.get(word)) {
+          count++;
+        } else {
+        // 2. 满足条件, 当时个数超过, 那么往前移动直到个数满足的index
+          while (subMap.get(word) &gt; wordsMap.get(word)) {
+            final String first = s.substring(l, l += wordLen);
+            subMap.put(first, subMap.getOrDefault(first, 0) - 1);
+            if (subMap.get(first) &lt; wordsMap.getOrDefault(first, 0)) {
+              count--;
+            }
+          }
+        }
+        if (count == wordNum) {
+          res.add(l);
+          count--;
+          final String first = s.substring(l, l += wordLen);
+          subMap.put(first, subMap.get(first) - 1);
+        }
+      }
+    }
+    return res;
+  }
 </code></pre>
 
-<p>Now DB has one row, and let&rsquo;s insert the same email again into <code>user</code>, it will prevent us to add it.</p>
+<p><code>Python</code> code: (感谢 <a href="https://github.com/sunboman">sunboman</a> Contribute. :-) ))</p>
 
-<p><img src="/img/mysql_unique_index_2.png" alt="alt text" /></p>
+<pre><code class="language-python">from typing import List
+import collections
 
-<p>Now we know how to add Unique index (constraints), when to chose <code>UNIQUE index</code> vs <code>Non-UNIQUE index</code>?</p>
-
-<p>In order to answer this question, we need to know how unique and non-unique index work when <code>select</code> or <code>update</code> happens.</p>
-
-<p>We will learn how it works using examples. Say we have <code>user</code> table, and contains data and <code>Unique index (score)</code>:</p>
-
-<pre><code>mysql&gt; select * from user;
-+----+------+-------+-------+
-| id | name | score | email |
-+----+------+-------+-------+
-|  1 | dog  |     1 | NULL  |
-|  4 | bear |     4 | NULL  |
-|  9 | test |     9 | NULL  |
-| 10 | dd   |    10 | NULL  |
-| 11 | hehe |    11 | NULL  |
-| 12 | haha |    12 | NULL  |
-+----+------+-------+-------+
-6 rows in set (0.00 sec)
-
-
-mysql&gt; show indexes from user;
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-| user  |          0 | PRIMARY  |            1 | id          | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
-| user  |          1 | score    |            1 | score       | A         |           6 |     NULL | NULL   |      | BTREE      |         |               |
-+-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-2 rows in set (0.00 sec)
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        if not s or not words:
+            return []
+        w_num = len(words)
+        w_len = len(words[0])
+        w_count = collections.Counter(words)
+        res = []
+        for i in range(w_len):
+            temp_count = collections.defaultdict(int)
+            left = i
+            for right in range(i, len(s) - w_len + 1, w_len):
+                temp_word = s[right: right + w_len]
+                if w_count[temp_word] &gt; 0:
+                    temp_count[temp_word] += 1
+                    while temp_count[temp_word] &gt; w_count[temp_word]:
+                        temp_count[s[left: left + w_len]] -= 1
+                        left += w_len
+                    if right + w_len - left == w_num * w_len:
+                        res.append(left)
+                        temp_count[s[left: left + w_len]] -= 1
+                        left += w_len
+                else:
+                    left = right + w_len
+                    temp_count.clear()
+        return res
 </code></pre>
-
-<p>Inorder to compare performance between <code>UNIQUE Index</code> and <code>Non-UNIQUE index</code>, we need to introduce <code>change buffer</code>. (below fig source from <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL change buffer</a>)</p>
-
-<p><img src="/img/mysql_unique_index_3.png" alt="alt text" /></p>
-
-<ul>
-<li><p>What operations can be in <code>change buffer</code>?
-&gt;<code>SELECT</code>, <code>UPDATE</code> and <code>DELETE</code> (DML) can modify <code>seconddary indexes (Non-UNIQUE indexes)</code>. If an affected index page (InnoDB is doing operations per page) is not in <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool"><code>buffer pool</code></a>, the changes will buffered into <code>change buffer</code>.</p></li>
-
-<li><p>The benefits using <code>change buffer</code>.
-&gt; When <code>secondary indexes (Non-UNIQUE indexes)</code> are not in <code>buffer pool</code>, to prevent expensive random access I/O operations that requires immediately read in effected index pages from disk. Buffered changes can be applied later in batches as pages read by other read into buffer pool by other read operations.</p></li>
-
-<li><p>When <code>change buffer</code> merge?
-&gt; - when a page is read into <code>buffer pool</code>
-&gt; - Background task schedule change buffer merge, i.e. set <code>innodb_io_capacity</code> upper limit on the I/O activity.
-&gt; - During crash recovery, change buffer merge.
-&gt; - Change buffer is persistent (durable and recover from system crash).
-&gt; - Full change buffer merge can be forced happen when server shutdown, using <code>--innodb-fast-shutdown=0</code>.</p></li>
-
-<li><p>When should use and when should not use <code>change buffer</code>?
-&gt; - <code>change buffer</code> is designed to reduce random I/O access to <code>secondary indexes</code>. When <code>buffer pool</code> is not fit all changes, <code>change buffer</code> should be used.
-&gt; - when entire data set fits within InnoDB <code>buffer pool</code>.</p></li>
-
-<li><p>How to check <code>change buffer</code> size?  - <code>&gt; show engine innodb status;</code></p>
-
-<pre><code>mysql&gt; show engine innodb status;
-
--------------------------------------
-INSERT BUFFER AND ADAPTIVE HASH INDEX
--------------------------------------
-Ibuf: size 1, free list len 0, seg size 2, 0 merges
-merged operations:
-insert 0, delete mark 0, delete 0
-discarded operations:
-insert 0, delete mark 0, delete 0
-Hash table size 34679, node heap has 4 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 1 buffer(s)
-Hash table size 34679, node heap has 3 buffer(s)
-0.00 hash searches/s, 0.00 non-hash searches/s
----
-</code></pre></li>
-</ul>
-
-<p><strong>Query</strong></p>
-
-<p>now we want to find <code>ids</code> when <code>score=4</code>.</p>
-
-<pre><code>select id from user where score=4;
-</code></pre>
-
-<p>For <code>Unique index</code>, when it find <code>score=4</code>, stop scan, return value, since <code>Unique index</code> no dup data in DB.</p>
-
-<p>For <code>Non-Unique index</code>, when it find <code>score=4</code>, it will continue scan next value until it find <code>score != 4</code>, because <code>non-unique index</code> allow duplicates data.</p>
-
-<p>InnoDB read/write per page, one page can have</p>
-
-<p><strong>Update</strong></p>
-
-<p>As now we know when to use <code>change buffer</code> and when not to use, so depends on how big the data set is, whether it can fits into <code>buffer pool</code>.</p>
-
-<p>When update data in in <code>buffer pool</code>, then <code>UNIQUE indexes</code> and <code>Non-UNIQUE indexes</code> performance are similar.</p>
-
-<p>when data is not in <code>buffer pool</code>,
-- <code>UNIQUE indexes</code> will need to random I/O access, put page into <code>buffer pool</code>, then do update
-- <code>Non-UNIQUE indexes</code> uses <code>change buffer</code>, eliminate random I/O access to <code>buffer pool</code> operation, which will have a big performance improvement.</p>
-
-<p>Based on the find, if application already guarateed data unique, then recommend <code>Non-UNIQUE indexes</code> over <code>UNIQUE indexes</code>, it will have a big performance improvement especially when dealing with a big data set.</p>
-
-<h1 id="references">References</h1>
-
-<ol>
-<li><a href="https://www.oreilly.com/library/view/high-performance-mysql/0596003064/ch04.html">High Performance MySQL Index</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/mysql-indexes.html">How MySQL Uses Indexes</a></li>
-<li><a href="https://www.vertabelo.com/blog/technical-articles/all-about-indexes-part-2-mysql-index-structure-and-performance">All about MySQL index structure and performance</a></li>
-<li>MySSQL 实战</li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html">MySQL InnoDB change buffer</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/faqs-innodb-change-buffer.html">FAQs MySQL InnoDB change buffer</a></li>
-<li><a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_buffer_pool">InnoDB Buffer Pool</a></li>
-</ol>
 
 
                 
@@ -423,11 +501,11 @@ Hash table size 34679, node heap has 3 buffer(s)
                 <hr>
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/post/hugo-to-github/" data-toggle="tooltip" data-placement="top" title="创建和发布第一个Hugo site 到你的 Github pages">Next
-                            Post &rarr;</a>
+                    <li class="previous">
+                        <a href="/post/lc149/" data-toggle="tooltip" data-placement="top" title="Leetcode 149 Max Points on a Line解题报告">&larr;
+                            Previous Post</a>
                     </li>
+                    
                     
                 </ul>
 
