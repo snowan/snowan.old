@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
-    <meta property="og:title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
-    <meta property="twitter:title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
+    <meta name="title" content="Leetcode 465 Optimal Account Balancing 解题报告" />
+    <meta property="og:title" content="Leetcode 465 Optimal Account Balancing 解题报告" />
+    <meta property="twitter:title" content="Leetcode 465 Optimal Account Balancing 解题报告" />
     
 
     
-    <meta name="description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析">
-    <meta property="og:description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析" />
-    <meta property="twitter:description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析" />
+    <meta name="description" content="Leetcode 465 Optimal Account Balancing 解题报告">
+    <meta property="og:description" content="Leetcode 465 Optimal Account Balancing 解题报告" />
+    <meta property="twitter:description" content="Leetcode 465 Optimal Account Balancing 解题报告" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Leetcode 30 Substring with Concatenation of All Words 解题报告-Snowan Blog</title>
+    <title>Leetcode 465 Optimal Account Balancing 解题报告-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/lc30/">
+    <link rel="canonical" href="/post/lc465/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,7 +150,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_22.JPG')
+        background-image: url('/img/bg_32.JPG')
     }
 </style>
 <header class="intro-header">
@@ -164,16 +164,12 @@
                             leetcode
                         </a>
                         
-                        <a class="tag" href="/tags/twopointers" title="twopointers">
-                            twopointers
-                        </a>
-                        
-                        <a class="tag" href="/tags/hashmap" title="Hashmap">
-                            Hashmap
+                        <a class="tag" href="/tags/recursion" title="recursion">
+                            recursion
                         </a>
                         
                     </div>
-                    <h1>Leetcode 30 Substring with Concatenation of All Words 解题报告</h1>
+                    <h1>Leetcode 465 Optimal Account Balancing 解题报告</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -181,7 +177,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Tuesday, June 11, 2019
+			Saturday, June 15, 2019
                         
                     </span>
                 </div>
@@ -209,13 +205,11 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#leetcode-30-substring-with-concatenation-of-all-words-解题报告">Leetcode 30 Substring with Concatenation of All Words 解题报告</a>
+<li><a href="#leetcode-465-optimal-account-balancing-解题报告">Leetcode 465 Optimal Account Balancing 解题报告</a>
 <ul>
-<li><a href="#题目-problem">题目 (Problem)</a></li>
-<li><a href="#解法-solution">解法 (Solution)</a>
+<li><a href="#题目-problem">题目 (Problem)</a>
 <ul>
-<li><a href="#解法一">解法一</a></li>
-<li><a href="#解法二">解法二</a></li>
+<li><a href="#reference">Reference:</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -223,237 +217,110 @@
                 
                 
 
-<h1 id="leetcode-30-substring-with-concatenation-of-all-words-解题报告">Leetcode 30 Substring with Concatenation of All Words 解题报告</h1>
+<h1 id="leetcode-465-optimal-account-balancing-解题报告">Leetcode 465 Optimal Account Balancing 解题报告</h1>
 
 <h2 id="题目-problem">题目 (Problem)</h2>
 
-<p>You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.</p>
+<p>A group of friends went on holiday and sometimes lent each other money. For example, Alice paid for Bill&rsquo;s lunch for <code>$10</code>. Then later Chris gave Alice <code>$5</code> for a taxi ride. We can model each transaction as a tuple <code>(x, y, z)</code> which means person <code>x</code> gave person <code>y</code> <code>$z</code>. Assuming Alice, Bill, and Chris are person <code>0</code>, <code>1</code>, and <code>2</code> respectively <code>(0, 1, 2</code> are the person&rsquo;s ID), the transactions can be represented as <code>[[0, 1, 10], [2, 0, 5]]</code>.</p>
+
+<p>Given a list of transactions between a group of people, return the minimum number of transactions required to settle the debt.</p>
+
+<p><strong>Note</strong>:</p>
+
+<ol>
+<li>A transaction will be given as a tuple <code>(x, y, z)</code>. Note that <code>x ≠ y</code> and <code>z &gt; 0</code>.</li>
+
+<li><p>Person&rsquo;s IDs may not be linear, e.g. we could have the persons <code>0, 1, 2</code> or we could also have the persons <code>0, 2, 6</code>.</p>
 
 <pre><code>Example 1:
+
 Input:
-  s = &quot;barfoothefoobarman&quot;,
-  words = [&quot;foo&quot;,&quot;bar&quot;]
-Output: [0,9]
-Explanation: Substrings starting at index 0 and 9 are &quot;barfoor&quot; and &quot;foobar&quot; respectively.
-The output order does not matter, returning [9,0] is fine too.
+[[0,1,10], [2,0,5]]
+
+Output:
+2
+
+Explanation:
+Person #0 gave person #1 $10.
+Person #2 gave person #0 $5.
+
+Two transactions are needed. One way to settle the debt is person #1 pays person #0 and #2 $5 each.
+
 
 Example 2:
+
 Input:
-  s = &quot;wordgoodgoodgoodbestword&quot;,
-  words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]
-Output: []
-</code></pre>
+[[0,1,10], [1,0,1], [1,2,5], [2,0,5]]
 
-<p>题意: 给定一个字符串(String s), 给定n个单词组成的字符串数组(String[] words), 找出所有子串(substring)的起始下标(start index), 使得该子串包含所有的单词, 每个单词的个数也要相同(子串中单词顺序任意).</p>
+Output:
+1
 
-<h2 id="解法-solution">解法 (Solution)</h2>
+Explanation:
+Person #0 gave person #1 $10.
+Person #1 gave person #0 $1.
+Person #1 gave person #2 $5.
+Person #2 gave person #0 $5.
 
-<h3 id="解法一">解法一</h3>
-
-<p>先简单,直接,暴力的解 (暴力出奇迹, 😄).</p>
-
-<p>遍历字符<code>s</code>,判断每个子串是匹配字符串数组中所有单词, 如果匹配, 记录下标 (<code>index</code>), 条件中每个单词的长度是相同的, 所以从当前下标, 可以很快得到单词长度的子串并进行比较.</p>
-
-<p>由于不考虑顺序,这里可以用<code>Hashmap</code>先保存所有单词,并记录单词出现的次数. <code>Map&lt;Key, Value&gt;</code>- <code>key</code> 是单词, <code>value</code> 是单词的个数.</p>
-
-<p>遍历字符<code>s</code>的时候,扫描并记录子串的单词和单词个数,用另一个<code>HashMap</code>保存, (<code>key</code> 是当前子串的单词, <code>value</code> 是当前子串单词出现的个数), 并与单词数组中单词和单词出现个数比较,</p>
-
-<ol>
-<li>如果当前单词不在单词数组中,那么以当前字符开头的子串不可能满足情况, 提前结束, 往后移动到下一个字符的子串.</li>
-<li>如果当前单词个数超过单词数组, 也不可能满足, 结束, 往后移动到下一个</li>
-<li>满足的单词的数量(<code>count</code>)加<code>1</code>.</li>
-<li>比较满足的单词数量<code>(count == wordNum)</code>, 满足, 记录下当前下标(<code>index</code>), 移动到下一个字符</li>
-<li>每次移动第二个HashMap清空, 重新计算</li>
+Therefore, person #1 only need to give person #0 $4, and all debt is settled.
+</code></pre></li>
 </ol>
 
-<p>例子:</p>
+<p>题意:</p>
 
-<pre><code>s = &quot;barfoothefoobarman&quot;
-words = [&quot;foo&quot;, &quot;bar&quot;]
-单词长度: wordLen = 3
-单词个数: wordNum = 2
-字符串长度: len = 17
+<p>题中意思是一堆朋友一起出去游玩,然后分享账单,一个人给另一个人一些钱吃饭,一个人给另外一个人车费,最后有一些账单,你可能欠一个人钱, 另一个人可能欠你的钱的账单, 最后问要怎么样最简单的能够把账单结清. (像一个分账单的app <code>splitwise</code>), 最后有个选项是smart group.</p>
 
-Words Map = {[foo:1], [bar:1]}
-i=0
-    子串 Map = {}
-    | b a r f o o t h e f o o b a r m a n 
-    当前子串: &quot;barfoo&quot;, 满足条件, res=[0]
-i=1
-    子串 Map = {}
-    b | a r f o o t h e f o o b a r m a n 
-    当前子串: &quot;arfoot&quot;, 不满足条件, 退出, 移到下一个, res=[0] 
-i=2
-    子串 Map = {}
-    b a | r f o o t h e f o o b a r m a n 
-    当前子串: &quot;rfooth&quot;, 不满足条件, 退出, 移到下一个, res=[0]
-.
-.
-.
-i=9
-    子串 Map = {}
-    b a r f o o t h e | f o o b a r m a n 
-    当前子串: &quot;foobar&quot;, 满足条件, res=[0, 9] 
-.
-.
-.
-i=13, 退出, 剩余子串长度不满足. res=[0, 9]
-</code></pre>
+<p>思路:</p>
 
-<p><em>时间复杂度(TC)</em>: <code>O(n * m) - n是s的长度, m是单词(words)的个数</code>.</p>
+<p>最后账单总和为0, 因为要找到最简单的方式把账单结清, 所以如果有人不欠别人的钱的话, 就没有必要继续计算此人了. 那么要怎么直到每个人有多少账单, 可以用一个<code>HashMap</code>, <code>Person ID</code> 作为 <code>Key</code>, 账单(钱)作为 <code>Value</code>. 扫描一遍给定的<code>tuple</code>, 给钱的加上钱, 欠钱的减去. 如, <code>[0,1,5], person 0</code>给<code>person 1 $5.</code>所以 <code>person 0 +5, person 1 -5.</code> 最后得到<code>Map, person</code> 和对应的<code>debt</code>, 对于<code>debt</code> 为<code>0</code>的<code>person</code>, 我们不需要做多余的分配, 因为这里求最少的分配方式.
+由于不需要记录具体如何分配, 也就是谁给谁多少钱, 所以从<code>Map</code>中, 取出<code>value</code>不是<code>0</code>的值组成一个数组, 那么现在就变成怎么样, 如何分配, 够使得所有的值最后都是<code>0</code>的问题?</p>
 
-<p><em>空间复杂度(SC)</em>: <code>O(m)</code></p>
+<p>对于每一个有<code>debt的person</code>, 进行清零操作. 从第一个<code>debt(index 0)</code>开始, 往后找到<code>index i</code> 如果<code>debts[i]</code>跟<code>debts[0]</code>的符号相反, 进行相加, 这样可以平衡两者之间的负债情况, 把当前<code>debts[i] = debts[0] + debts[i]</code>, 可以到达<code>0</code>的状态, 继续进行下一个,直到每一个<code>debts</code>都为<code>0</code>. 可以维护一个最小交易数的变量, 用递归清零操作, 最后找到最小. Skip已经清零的账户, 继续往后查找.</p>
 
-<p>Java code:</p>
+<p>假设有: <code>[5, -10, 5]</code>, 我们直到2次转账就可以达到平衡, <code>person 1</code> 分别给<code>person 0</code> 和 <code>2 $5</code>.</p>
 
-<pre><code class="language-java">public List&lt;Integer&gt; findSubstring(String s, String[] words) {
-    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-    if (s == null || words == null || s.length() &lt; words.length || words.length == 0) return res;
-    Map&lt;String, Integer&gt; wordsMap = new HashMap&lt;&gt;();
-    for (String w : words) {
-      wordsMap.put(w, wordsMap.getOrDefault(w, 0) + 1);
-    }
-    int len = s.length();
-    int wordNum = words.length;
-    int wordLen = words[0].length();
-    if (len &lt; wordNum * wordLen) return res;
-    for (int i = 0; i &lt; len - wordNum * wordLen + 1; i++) {
-      Map&lt;String, Integer&gt; subMap = new HashMap&lt;&gt;();
-      int currCount = 0;
-      while (currCount &lt; wordNum) {
-        String currWord = s.substring(currCount * wordLen + i, (currCount + 1) * wordLen + i);
-        if (!wordsMap.containsKey(currWord)) break;
-        subMap.put(currWord, subMap.getOrDefault(currWord, 0) + 1);
-        if (subMap.get(currWord) &gt; wordsMap.get(currWord)) break;
-        currCount++;
-      }
-      if (currCount == wordNum) {
-        res.add(i);
-      }
-    }
-    return res;
-  }
+<p><em>时间复杂度 (TC)</em>: <code>O(n*2^n) - n is the size of debts</code></p>
 
-</code></pre>
-
-<h3 id="解法二">解法二</h3>
-
-<p>参考大神<a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13656/An-O(N)-solution-with-detailed-explanation">shichaotan
-的解法</a></p>
-
-<p>解法一中,我们每次移动一个字符(<code>char</code>), 这样就造成了很多不必要的重复计算. 在解法二中,每次移动一个单词(<code>word</code>), 这样可以以word长度分类移动, 例如: <code>word</code>长度为<code>3</code>, 那么就可以分为<code>3</code>类来移动.</p>
-
-<p>例子如下图, 对于单词(<code>word</code>)长度为<code>3</code>, 分为 <code>i = 0, i = 1, i = 2</code> 三类移动单词的距离.</p>
-
-<p><img src="/img/lc30_01.png" alt="alt text" /></p>
-
-<p><img src="/img/lc30_02.png" alt="alt text" /></p>
-
-<p><img src="/img/lc30_03.png" alt="alt text" /></p>
-
-<p>从例子中,我们可以发现,按单词(<code>word</code>)移动,在解法一中,考虑了三种情况,那么解法二可以针对这三点进行优化:</p>
-
-<ol>
-<li>当面单词不满足(不在给定单词数组(<code>words</code>)中).</li>
-<li>当面单词出现在单词数组(<code>words</code>)中,但个数超过给定的个数</li>
-<li>往后移动的过程,不需要每次都清空<code>HashMap</code>, 造成重复计算, 浪费资源.</li>
-</ol>
-
-<p>对于1中单词不满足了, 可以略过(skip)掉不满足的这个单词前面所有的移动, 直接移动到下一个单词. 例如:
-<img src="/img/lc30_1.png" alt="alt text" /></p>
-
-<p>对于2中单词满足, 但是个数超过给定个数的情况,
-<img src="/img/lc30_2.png" alt="alt text" /></p>
-
-<p>这样就不需要每次移动都清空 <code>HashMap</code>, 而是当单词不满足的情况下, 清空<code>HashMap</code> 即可.</p>
-
-<p>相较于解法一中, 每次移动一个字符都需要清空<code>HashMap</code>,节省很多时间的计算</p>
-
-<p><em>时间复杂度(TC)</em>: <code>O</code>(n) - n 为 S 的长度`</p>
-
-<p><em>空间复杂度(SC)</em>: <code>O(m) - m 为单词个数</code></p>
+<p><em>空间复杂度 (SC)</em>: <code>O(n*2^n)</code></p>
 
 <p><code>Java</code> code:</p>
 
-<pre><code class="language-java">public static List&lt;Integer&gt; findSubstring2(String s, String[] words) {
-    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-    if (s == null || words == null || s.length() &lt; words.length || words.length == 0) return res;
-    final Map&lt;String, Integer&gt; wordsMap = new HashMap&lt;&gt;();
-    for (final String word : words) {
-      wordsMap.put(word, wordsMap.getOrDefault(word, 0) + 1);
+<pre><code class="language-java">public static int minTransfers(int[][] transactions) {
+    if (transactions == null || transactions.length == 0) return 0;
+    int len = transactions.length;
+    if (len == 1) return 1;
+    Map&lt;Integer, Integer&gt; balanceMap = new HashMap&lt;&gt;();
+    for (int[] tc : transactions) {
+      balanceMap.put(tc[0], balanceMap.getOrDefault(tc[0], 0) + tc[2]);
+      balanceMap.put(tc[1], balanceMap.getOrDefault(tc[1], 0) - tc[2]);
     }
-    final int len = s.length();
-    final int wordNum = words.length;
-    final int wordLen = words[0].length();
-    for (int i = 0; i &lt; wordLen; i++) {
-      int l = i, count = 0;
-      final Map&lt;String, Integer&gt; subMap = new HashMap&lt;&gt;();
-      for (int r = i; r &lt;= len - wordLen; r += wordLen) {
-        final String word = s.substring(r, r + wordLen);
-        // 1. 不满足条件,直接跳到单词后面, 清空map
-        if (!wordsMap.containsKey(word)) {
-          subMap.clear();
-          count = 0;
-          l = r + wordLen;
-          continue;
-        }
-        subMap.put(word, subMap.getOrDefault(word, 0) + 1);
-        if (subMap.get(word) &lt;= wordsMap.get(word)) {
-          count++;
-        } else {
-        // 2. 满足条件, 当时个数超过, 那么往前移动直到个数满足的index
-          while (subMap.get(word) &gt; wordsMap.get(word)) {
-            final String first = s.substring(l, l += wordLen);
-            subMap.put(first, subMap.getOrDefault(first, 0) - 1);
-            if (subMap.get(first) &lt; wordsMap.getOrDefault(first, 0)) {
-              count--;
-            }
-          }
-        }
-        if (count == wordNum) {
-          res.add(l);
-          count--;
-          final String first = s.substring(l, l += wordLen);
-          subMap.put(first, subMap.get(first) - 1);
-        }
+    List&lt;Integer&gt; debts = balanceMap.values().stream()
+        .filter(v -&gt; v != 0)
+        .collect(Collectors.toList());
+    return helper(0, debts);
+  }
+
+  private static int helper(int idx, List&lt;Integer&gt; debts) {
+      // skip 0
+    while (idx &lt; debts.size() &amp;&amp; debts.get(idx) == 0) idx++;
+    if (idx == debts.size()) return 0;
+    int counts = Integer.MAX_VALUE;
+    for (int i = idx + 1; i &lt; debts.size(); i++) {
+      // can be balanced
+      if (debts.get(i) * debts.get(idx) &lt; 0) {
+        debts.set(i, debts.get(i) + debts.get(idx));
+        counts = Math.min(counts, 1 + helper(idx + 1, debts));
+        debts.set(i, debts.get(i) - debts.get(idx));
       }
     }
-    return res;
+    return counts;
   }
 </code></pre>
 
-<p><code>Python</code> code: (感谢 <a href="https://github.com/sunboman">sunboman</a> Contribute. :-) ))</p>
+<h3 id="reference">Reference:</h3>
 
-<pre><code class="language-python">from typing import List
-import collections
-
-class Solution:
-    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
-        if not s or not words:
-            return []
-        w_num = len(words)
-        w_len = len(words[0])
-        w_count = collections.Counter(words)
-        res = []
-        for i in range(w_len):
-            temp_count = collections.defaultdict(int)
-            left = i
-            for right in range(i, len(s) - w_len + 1, w_len):
-                temp_word = s[right: right + w_len]
-                if w_count[temp_word] &gt; 0:
-                    temp_count[temp_word] += 1
-                    while temp_count[temp_word] &gt; w_count[temp_word]:
-                        temp_count[s[left: left + w_len]] -= 1
-                        left += w_len
-                    if right + w_len - left == w_num * w_len:
-                        res.append(left)
-                        temp_count[s[left: left + w_len]] -= 1
-                        left += w_len
-                else:
-                    left = right + w_len
-                    temp_count.clear()
-        return res
-</code></pre>
+<ol>
+<li><a href="http://massivealgorithms.blogspot.com/2016/11/leetcode-465-optimal-account-balancing.html">Massive algorithms study</a></li>
+</ol>
 
 
                 
@@ -502,15 +369,10 @@ class Solution:
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/lc149/" data-toggle="tooltip" data-placement="top" title="Leetcode 149 Max Points on a Line解题报告">&larr;
+                        <a href="/post/lc30/" data-toggle="tooltip" data-placement="top" title="Leetcode 30 Substring with Concatenation of All Words 解题报告">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/lc465/" data-toggle="tooltip" data-placement="top" title="Leetcode 465 Optimal Account Balancing 解题报告">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

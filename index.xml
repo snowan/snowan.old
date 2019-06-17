@@ -6,10 +6,19 @@
     <description>Recent content on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 15 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://snowan.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode 465 Optimal Account Balancing 解题报告</title>
+      <link>https://snowan.github.io/post/lc465/</link>
+      <pubDate>Sat, 15 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/lc465/</guid>
+      <description>Leetcode 465 Optimal Account Balancing 解题报告 题目 (Problem) A group of friends went on holiday and sometimes lent each other money. For example, Alice paid for Bill&amp;rsquo;s lunch for $10. Then later Chris gave Alice $5 for a taxi ride. We can model each transaction as a tuple (x, y, z) which means person x gave person y $z. Assuming Alice, Bill, and Chris are person</description>
+    </item>
     
     <item>
       <title>Leetcode 30 Substring with Concatenation of All Words 解题报告</title>
