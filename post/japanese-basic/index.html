@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
-    <meta property="og:title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
-    <meta property="twitter:title" content="Leetcode 30 Substring with Concatenation of All Words 解题报告" />
+    <meta name="title" content="日语基础" />
+    <meta property="og:title" content="日语基础" />
+    <meta property="twitter:title" content="日语基础" />
     
 
     
-    <meta name="description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析">
-    <meta property="og:description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析" />
-    <meta property="twitter:description" content="Leetcode 30 Substring with Concatenation of All Words 解题分析" />
+    <meta name="description" content="日语的基础学习 - 平假名, 片假名, 浊音, 半浊音, 拗音, 促音">
+    <meta property="og:description" content="日语的基础学习 - 平假名, 片假名, 浊音, 半浊音, 拗音, 促音" />
+    <meta property="twitter:description" content="日语的基础学习 - 平假名, 片假名, 浊音, 半浊音, 拗音, 促音" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Leetcode 30 Substring with Concatenation of All Words 解题报告-Snowan Blog</title>
+    <title>日语基础-Snowan Blog</title>
 
-    <link rel="canonical" href="/post/lc30/">
+    <link rel="canonical" href="/post/japanese-basic/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -154,7 +154,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg_22.JPG')
+        background-image: url('/img/bg_28.JPG')
     }
 </style>
 <header class="intro-header">
@@ -164,20 +164,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/leetcode" title="leetcode">
-                            leetcode
-                        </a>
-                        
-                        <a class="tag" href="/tags/twopointers" title="twopointers">
-                            twopointers
-                        </a>
-                        
-                        <a class="tag" href="/tags/hashmap" title="Hashmap">
-                            Hashmap
+                        <a class="tag" href="/tags/japanese" title="Japanese">
+                            Japanese
                         </a>
                         
                     </div>
-                    <h1>Leetcode 30 Substring with Concatenation of All Words 解题报告</h1>
+                    <h1>日语基础</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
 			Posted by 
@@ -185,7 +177,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Tuesday, June 11, 2019
+			Sunday, June 30, 2019
                         
                     </span>
                 </div>
@@ -210,237 +202,41 @@
                 
                 
 
-<h1 id="leetcode-30-substring-with-concatenation-of-all-words-解题报告">Leetcode 30 Substring with Concatenation of All Words 解题报告</h1>
+<p>一直听说日本的各种传奇, 看过宫崎骏, 新海诚等的系列动画片, 最近看完日版legal high, 读了村上春树, 东野圭吾, 川端康成的书籍, 想要体会原著的魅力, 加之还有一颗体验不同生活的强烈愿望, 学习日语的愿望也日渐强烈, 现在开始我的日语学习之旅~</p>
 
-<h2 id="题目-problem">题目 (Problem)</h2>
+<p>然后写下自己学习旅程, 想要找到知己一起学习, 分享, 和督促~</p>
 
-<p>You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.</p>
+<p>下一站, 日本之旅开始准备~</p>
 
-<pre><code>Example 1:
-Input:
-  s = &quot;barfoothefoobarman&quot;,
-  words = [&quot;foo&quot;,&quot;bar&quot;]
-Output: [0,9]
-Explanation: Substrings starting at index 0 and 9 are &quot;barfoor&quot; and &quot;foobar&quot; respectively.
-The output order does not matter, returning [9,0] is fine too.
+<h1 id="日语的基础学习">日语的基础学习</h1>
 
-Example 2:
-Input:
-  s = &quot;wordgoodgoodgoodbestword&quot;,
-  words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]
-Output: []
-</code></pre>
+<h3 id="日语假名-平假名和片假名-https-www-wikiwand-com-zh-e6-97-a5-e8-aa-9e-e5-81-87-e5-90-8d">日语假名 - <a href="https://www.wikiwand.com/zh/%E6%97%A5%E8%AA%9E%E5%81%87%E5%90%8D">平假名和片假名</a></h3>
 
-<p>题意: 给定一个字符串(String s), 给定n个单词组成的字符串数组(String[] words), 找出所有子串(substring)的起始下标(start index), 使得该子串包含所有的单词, 每个单词的个数也要相同(子串中单词顺序任意).</p>
+<p>最近刚学习完日语的50音图, 搜查各种网上学习日语的资料, 都强调50音图的重要性, 这几天睡前看了<a href="https://www.youtube.com/watch?v=1WWtThKHPGY&amp;list=PLY6kM_GfFvPhvpkVjnRAdrGv_l45xQ91T">新东方唐盾老师的Youtube学习视频</a>, 真的是获益良多, 现在可以很快的默写下来50音图.</p>
 
-<h2 id="解法-solution">解法 (Solution)</h2>
+<p><em>平假名</em>: 用于一般的书写, 看起来比较圆润, 像中国书法的行书</p>
 
-<h3 id="解法一">解法一</h3>
+<p><em>片假名</em>: 则用于表达外来词汇和特殊词汇, 看起来比较刚硬, 像中国书法的楷书</p>
 
-<p>先简单,直接,暴力的解 (暴力出奇迹, 😄).</p>
+<p><img src="/img/language/jp_50.jpeg" alt="alt text" /></p>
 
-<p>遍历字符<code>s</code>,判断每个子串是匹配字符串数组中所有单词, 如果匹配, 记录下标 (<code>index</code>), 条件中每个单词的长度是相同的, 所以从当前下标, 可以很快得到单词长度的子串并进行比较.</p>
+<h3 id="浊音和半浊音">浊音和半浊音</h3>
 
-<p>由于不考虑顺序,这里可以用<code>Hashmap</code>先保存所有单词,并记录单词出现的次数. <code>Map&lt;Key, Value&gt;</code>- <code>key</code> 是单词, <code>value</code> 是单词的个数.</p>
+<p><em>浊音</em> 在“か”、“さ”、“た”、“は行”的假名右上角加上两小点.</p>
 
-<p>遍历字符<code>s</code>的时候,扫描并记录子串的单词和单词个数,用另一个<code>HashMap</code>保存, (<code>key</code> 是当前子串的单词, <code>value</code> 是当前子串单词出现的个数), 并与单词数组中单词和单词出现个数比较,</p>
+<p><em>半浊音</em> “は行”假名的右上角加上一个小圈就变成了半浊音的假名.</p>
 
-<ol>
-<li>如果当前单词不在单词数组中,那么以当前字符开头的子串不可能满足情况, 提前结束, 往后移动到下一个字符的子串.</li>
-<li>如果当前单词个数超过单词数组, 也不可能满足, 结束, 往后移动到下一个</li>
-<li>满足的单词的数量(<code>count</code>)加<code>1</code>.</li>
-<li>比较满足的单词数量<code>(count == wordNum)</code>, 满足, 记录下当前下标(<code>index</code>), 移动到下一个字符</li>
-<li>每次移动第二个HashMap清空, 重新计算</li>
-</ol>
+<p><img src="/img/language/jp_zhuoyin.jpeg" alt="alt text" /></p>
 
-<p>例子:</p>
+<h3 id="拗音-https-www-wikiwand-com-zh-hans-e6-8b-97-e9-9f-b3"><a href="https://www.wikiwand.com/zh-hans/%E6%8B%97%E9%9F%B3">拗音</a></h3>
 
-<pre><code>s = &quot;barfoothefoobarman&quot;
-words = [&quot;foo&quot;, &quot;bar&quot;]
-单词长度: wordLen = 3
-单词个数: wordNum = 2
-字符串长度: len = 17
+<blockquote>
+<p>拗音是将“き（ki）、ぎ（gi）、し（shi）、ち（chi）、じ/ぢ（ji）、に（ni）、ひ（hi）、び（bi）、ぴ（pi）、み（mi）、り（ri）”和“や行”连在一起读，在书写时，“や行”的假名会缩小，像促音“っ”一样。以“きゃ”为例，发音时口腔呈即将读出“き（ki）”的状态，但不读出，反而立即读出“や”，即是kya。</p>
+</blockquote>
 
-Words Map = {[foo:1], [bar:1]}
-i=0
-    子串 Map = {}
-    | b a r f o o t h e f o o b a r m a n 
-    当前子串: &quot;barfoo&quot;, 满足条件, res=[0]
-i=1
-    子串 Map = {}
-    b | a r f o o t h e f o o b a r m a n 
-    当前子串: &quot;arfoot&quot;, 不满足条件, 退出, 移到下一个, res=[0] 
-i=2
-    子串 Map = {}
-    b a | r f o o t h e f o o b a r m a n 
-    当前子串: &quot;rfooth&quot;, 不满足条件, 退出, 移到下一个, res=[0]
-.
-.
-.
-i=9
-    子串 Map = {}
-    b a r f o o t h e | f o o b a r m a n 
-    当前子串: &quot;foobar&quot;, 满足条件, res=[0, 9] 
-.
-.
-.
-i=13, 退出, 剩余子串长度不满足. res=[0, 9]
-</code></pre>
+<p><img src="/img/language/jp_aoyin.png" alt="alt text" /></p>
 
-<p><em>时间复杂度(TC)</em>: <code>O(n * m) - n是s的长度, m是单词(words)的个数</code>.</p>
-
-<p><em>空间复杂度(SC)</em>: <code>O(m)</code></p>
-
-<p>Java code:</p>
-
-<pre><code class="language-java">public List&lt;Integer&gt; findSubstring(String s, String[] words) {
-    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-    if (s == null || words == null || s.length() &lt; words.length || words.length == 0) return res;
-    Map&lt;String, Integer&gt; wordsMap = new HashMap&lt;&gt;();
-    for (String w : words) {
-      wordsMap.put(w, wordsMap.getOrDefault(w, 0) + 1);
-    }
-    int len = s.length();
-    int wordNum = words.length;
-    int wordLen = words[0].length();
-    if (len &lt; wordNum * wordLen) return res;
-    for (int i = 0; i &lt; len - wordNum * wordLen + 1; i++) {
-      Map&lt;String, Integer&gt; subMap = new HashMap&lt;&gt;();
-      int currCount = 0;
-      while (currCount &lt; wordNum) {
-        String currWord = s.substring(currCount * wordLen + i, (currCount + 1) * wordLen + i);
-        if (!wordsMap.containsKey(currWord)) break;
-        subMap.put(currWord, subMap.getOrDefault(currWord, 0) + 1);
-        if (subMap.get(currWord) &gt; wordsMap.get(currWord)) break;
-        currCount++;
-      }
-      if (currCount == wordNum) {
-        res.add(i);
-      }
-    }
-    return res;
-  }
-
-</code></pre>
-
-<h3 id="解法二">解法二</h3>
-
-<p>参考大神<a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13656/An-O(N)-solution-with-detailed-explanation">shichaotan
-的解法</a></p>
-
-<p>解法一中,我们每次移动一个字符(<code>char</code>), 这样就造成了很多不必要的重复计算. 在解法二中,每次移动一个单词(<code>word</code>), 这样可以以word长度分类移动, 例如: <code>word</code>长度为<code>3</code>, 那么就可以分为<code>3</code>类来移动.</p>
-
-<p>例子如下图, 对于单词(<code>word</code>)长度为<code>3</code>, 分为 <code>i = 0, i = 1, i = 2</code> 三类移动单词的距离.</p>
-
-<p><img src="/img/lc30_01.png" alt="alt text" /></p>
-
-<p><img src="/img/lc30_02.png" alt="alt text" /></p>
-
-<p><img src="/img/lc30_03.png" alt="alt text" /></p>
-
-<p>从例子中,我们可以发现,按单词(<code>word</code>)移动,在解法一中,考虑了三种情况,那么解法二可以针对这三点进行优化:</p>
-
-<ol>
-<li>当面单词不满足(不在给定单词数组(<code>words</code>)中).</li>
-<li>当面单词出现在单词数组(<code>words</code>)中,但个数超过给定的个数</li>
-<li>往后移动的过程,不需要每次都清空<code>HashMap</code>, 造成重复计算, 浪费资源.</li>
-</ol>
-
-<p>对于1中单词不满足了, 可以略过(skip)掉不满足的这个单词前面所有的移动, 直接移动到下一个单词. 例如:
-<img src="/img/lc30_1.png" alt="alt text" /></p>
-
-<p>对于2中单词满足, 但是个数超过给定个数的情况,
-<img src="/img/lc30_2.png" alt="alt text" /></p>
-
-<p>这样就不需要每次移动都清空 <code>HashMap</code>, 而是当单词不满足的情况下, 清空<code>HashMap</code> 即可.</p>
-
-<p>相较于解法一中, 每次移动一个字符都需要清空<code>HashMap</code>,节省很多时间的计算</p>
-
-<p><em>时间复杂度(TC)</em>: <code>O</code>(n) - n 为 S 的长度`</p>
-
-<p><em>空间复杂度(SC)</em>: <code>O(m) - m 为单词个数</code></p>
-
-<p><code>Java</code> code:</p>
-
-<pre><code class="language-java">public static List&lt;Integer&gt; findSubstring2(String s, String[] words) {
-    List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-    if (s == null || words == null || s.length() &lt; words.length || words.length == 0) return res;
-    final Map&lt;String, Integer&gt; wordsMap = new HashMap&lt;&gt;();
-    for (final String word : words) {
-      wordsMap.put(word, wordsMap.getOrDefault(word, 0) + 1);
-    }
-    final int len = s.length();
-    final int wordNum = words.length;
-    final int wordLen = words[0].length();
-    for (int i = 0; i &lt; wordLen; i++) {
-      int l = i, count = 0;
-      final Map&lt;String, Integer&gt; subMap = new HashMap&lt;&gt;();
-      for (int r = i; r &lt;= len - wordLen; r += wordLen) {
-        final String word = s.substring(r, r + wordLen);
-        // 1. 不满足条件,直接跳到单词后面, 清空map
-        if (!wordsMap.containsKey(word)) {
-          subMap.clear();
-          count = 0;
-          l = r + wordLen;
-          continue;
-        }
-        subMap.put(word, subMap.getOrDefault(word, 0) + 1);
-        if (subMap.get(word) &lt;= wordsMap.get(word)) {
-          count++;
-        } else {
-        // 2. 满足条件, 当时个数超过, 那么往前移动直到个数满足的index
-          while (subMap.get(word) &gt; wordsMap.get(word)) {
-            final String first = s.substring(l, l += wordLen);
-            subMap.put(first, subMap.getOrDefault(first, 0) - 1);
-            if (subMap.get(first) &lt; wordsMap.getOrDefault(first, 0)) {
-              count--;
-            }
-          }
-        }
-        if (count == wordNum) {
-          res.add(l);
-          count--;
-          final String first = s.substring(l, l += wordLen);
-          subMap.put(first, subMap.get(first) - 1);
-        }
-      }
-    }
-    return res;
-  }
-</code></pre>
-
-<p><code>Python</code> code: (感谢 <a href="https://github.com/sunboman">sunboman</a> Contribute. :-) ))</p>
-
-<pre><code class="language-python">from typing import List
-import collections
-
-class Solution:
-    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
-        if not s or not words:
-            return []
-        w_num = len(words)
-        w_len = len(words[0])
-        w_count = collections.Counter(words)
-        res = []
-        for i in range(w_len):
-            temp_count = collections.defaultdict(int)
-            left = i
-            for right in range(i, len(s) - w_len + 1, w_len):
-                temp_word = s[right: right + w_len]
-                if w_count[temp_word] &gt; 0:
-                    temp_count[temp_word] += 1
-                    while temp_count[temp_word] &gt; w_count[temp_word]:
-                        temp_count[s[left: left + w_len]] -= 1
-                        left += w_len
-                    if right + w_len - left == w_num * w_len:
-                        res.append(left)
-                        temp_count[s[left: left + w_len]] -= 1
-                        left += w_len
-                else:
-                    left = right + w_len
-                    temp_count.clear()
-        return res
-</code></pre>
+<p>がんばれ！</p>
 
 
                 
@@ -489,15 +285,10 @@ class Solution:
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/lc149/" data-toggle="tooltip" data-placement="top" title="Leetcode 149 Max Points on a Line解题报告">&larr;
+                        <a href="/post/lc465/" data-toggle="tooltip" data-placement="top" title="Leetcode 465 Optimal Account Balancing 解题报告">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/lc465/" data-toggle="tooltip" data-placement="top" title="Leetcode 465 Optimal Account Balancing 解题报告">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
