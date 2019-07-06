@@ -355,10 +355,10 @@
 <pre><code>0
 \
 1
-\
-2
- \
-  3
+  \
+    2
+      \
+        3
 
 </code></pre></li>
 
@@ -512,6 +512,133 @@ class UnionFind {
         }
         numConnected--;
     }
+}
+</code></pre>
+
+<p>例子2:
+<a href="https://leetcode.com/problems/lexicographically-smallest-equivalent-string/">1061. Lexicographically Smallest Equivalent String</a></p>
+
+<p><a href="https://github.com/snowan/interviews/blob/master/java/src/leetcode/unionfind/LC1061/LC1061LexicographicallySmallestEquivStr.java">Snowan 1061 解题</a></p>
+
+<p>题目(Problem):</p>
+
+<pre><code>Given strings A and B of the same length, we say A[i] and B[i] are equivalent characters. For example, if A = &quot;abc&quot; and B = &quot;cde&quot;, then we have 'a' == 'c', 'b' == 'd', 'c' == 'e'.
+
+Equivalent characters follow the usual rules of any equivalence relation:
+
+Reflexivity: 'a' == 'a'
+Symmetry: 'a' == 'b' implies 'b' == 'a'
+Transitivity: 'a' == 'b' and 'b' == 'c' implies 'a' == 'c'
+For example, given the equivalency information from A and B above, S = &quot;eed&quot;, &quot;acd&quot;, and &quot;aab&quot; are equivalent strings, and &quot;aab&quot; is the lexicographically smallest equivalent string of S.
+
+Return the lexicographically smallest equivalent string of S by using the equivalency information from A and B.
+
+ 
+Example 1:
+
+Input: A = &quot;parker&quot;, B = &quot;morris&quot;, S = &quot;parser&quot;
+Output: &quot;makkek&quot;
+Explanation: Based on the equivalency information in A and B, we can group their characters as [m,p], [a,o], [k,r,s], [e,i]. The characters in each group are equivalent and sorted in lexicographical order. So the answer is &quot;makkek&quot;.
+Example 2:
+
+Input: A = &quot;hello&quot;, B = &quot;world&quot;, S = &quot;hold&quot;
+Output: &quot;hdld&quot;
+Explanation:  Based on the equivalency information in A and B, we can group their characters as [h,w], [d,e,o], [l,r]. So only the second letter 'o' in S is changed to 'd', the answer is &quot;hdld&quot;.
+Example 3:
+
+Input: A = &quot;leetcode&quot;, B = &quot;programs&quot;, S = &quot;sourcecode&quot;
+Output: &quot;aauaaaaada&quot;
+Explanation:  We group the equivalent characters in A and B as [a,o,e,r,s,c], [l,p], [g,t] and [d,m], thus all letters in S except 'u' and 'd' are transformed to 'a', the answer is &quot;aauaaaaada&quot;.
+ 
+
+Note:
+
+String A, B and S consist of only lowercase English letters from 'a' - 'z'.
+The lengths of string A, B and S are between 1 and 1000.
+String A and B are of the same length.
+</code></pre>
+
+<p><strong>题目大意:</strong>
+给定两个字符串 A 和 B, A 和 B 长度是相同的, A 和 B 每个字符一一匹配, 匹配的字符具有一下三个特性
+- 自反性: <code>a == a</code>
+- 对称性: <code>a == b, then b == a</code>
+- 传递性: <code>a == b, b == c, then a == c</code>
+然后给定字符串 <code>String S</code>, 要求出按字母排序最小的的组合.</p>
+
+<p><strong>分析</strong></p>
+
+<p>用 Union-Find, 如果字符匹配, 那么匹配按字母排序最小的. 每次都找字符的root, 然后比较, 赋予最小字母给当前字符的root.</p>
+
+<p>例如:</p>
+
+<pre><code>A = &quot;hello&quot;, B = &quot;world&quot;, S = &quot;hold&quot;
+
+1. 对 A 和 B 字符匹配, 并建立root 图. 题中给定字符串只包含小写字母 26 个, 字符的下标表示成 [char - ’a'], 如, 字符 a 的下标是 ‘a'-’a' = 0. 
+parent[26]
+i = 0,
+    'h' == 'w', 'h' &lt; 'w', parent['h'-'a'] = 'h', parent['w'-'a']='h'
+i = 1,
+    'e' == 'o', 'e' &lt; 'o', parent['e'-'a'] = 'e', parent['o-'a']='e'
+i = 2, 
+    'l' == 'r', 'l' &lt; 'r', parent['l'-'a'] = 'l', parent['r-'a']='l'
+i = 3,
+    'l' == 'l', 'l' == 'l', parent['l'-'a'] = 'l', parent['l-'a']='l'
+i = 4,
+    'o' == 'd', 'd' &lt; 'o', parent['o' - 'a'] = 'l', 'l' &lt; 'd', so parent['l'-'a'] = 'd', parent['o-'a']='d', parent['d' - 'a'] = ‘d'
+
+</code></pre>
+
+<p>匹配完 A 和 B 后, 我们得到数组:
+<img src="/img/uf_9.png" alt="alt text" /></p>
+
+<p>图中, 我们可以看到可以匹配的字符, 对应的都变成最小的了, 那匹配字符串 S 的时候, 只要到数组中找到对应的字符组成新的字符串就行了.</p>
+
+<p>得到最后的字符串: <code>S=”hold“ -&gt; &quot;hdld&quot;</code></p>
+
+<p><strong>Java代码实现:</strong></p>
+
+<pre><code class="language-java">public class LC1061LexicographicallySmallestEquivStr {
+  public String smallestEquivalentString(String A, String B, String S) {
+    UnionFind uf = new UnionFind();
+    int len = A.length();
+    for (int i = 0; i &lt; len; i++) {
+      int a = A.charAt(i) - 'a';
+      int b = B.charAt(i) - 'a';
+      int pa = uf.find(a);
+      int pb = uf.find(b);
+      if (pa == pb) continue;
+      uf.union(a, b);
+    }
+    StringBuilder res = new StringBuilder();
+    for (int i = 0; i &lt; S.length(); i++) {
+      int curr = S.charAt(i) - 'a';
+      res.append((char) (uf.find(curr) + 'a'));
+    }
+    return res.toString();
+  }
+
+  class UnionFind {
+    int[] parent;
+
+    public UnionFind() {
+      parent = new int[26];
+      for (int i = 0; i &lt; 26; i++) {
+        parent[i] = i;
+      }
+    }
+
+    private int find(int idx) {
+      return parent[idx] == idx ? idx : find(parent[idx]);
+    }
+
+    private void union(int a, int b) {
+      int pa = find(a);
+      int pb = find(b);
+      if (pa == pb) return;
+      parent[pa] = pa &lt; pb ? pa : pb;
+      parent[pb] = pa &lt; pb ? pa : pb;
+    }
+  }
 }
 </code></pre>
 
