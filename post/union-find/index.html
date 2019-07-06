@@ -181,7 +181,7 @@
 			         &#34;Snowan&#34;
 			 
 			on 
-			Monday, July 1, 2019
+			Friday, July 5, 2019
                         
                     </span>
                 </div>
@@ -425,12 +425,7 @@
 <p>通过比较, 我们可以发现,用<code>rank</code>去记录每个连通<code>component</code>的<code>size</code>, 然后平衡树, 即使得树扁平化(如上图), 可以避免树变得很高, 提高树查找的时间复杂度.</p>
 
 <p>以下是几种<code>union-find</code> 算法的时间复杂度的比较:
-| 算法(Algorithm) |  构造函数(Constructor)  | Union | Find |
-|&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;|&mdash;&mdash;-|&mdash;&mdash;|
-| Quick-Find     | O(N)                   | O(N)  | O(1) |<br />
-| Quick-Union    | O(N)                   | 树高度 | 树高度|<br />
-| Weighted Quick-Union | O(N)             | O(logN)| O(logN) |
-|Weighted Quick-Union with Path Compression| O(N)|near to O(1)| near to O(1)|</p>
+<img src="/img/uf_8.png" alt="alt text" /></p>
 
 <p>根据上图对不同union-find算法的时间复杂度的分析, 对于大规模数据的运算, 优先选择Weighted Quick-Union 算法. 如果数据量超大, 那么最好选 <code>Weighted Quick-Union with Path Compression</code> 算法.</p>
 
@@ -523,7 +518,11 @@ class UnionFind {
 <h2 id="参考-references">(参考)References</h2>
 
 <ol>
-<li><a href="https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf">算法 Union-Find</a></li>
+<li><p><a href="https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf">算法 Union-Find</a></p></li>
+
+<li><p><a href="https://www.coursera.org/learn/algorithms-part1">Coursera Algorithm I</a></p></li>
+
+<li><p><a href="https://www.coursera.org/learn/algorithms-part2">Coursera Algorithm II</a></p></li>
 </ol>
 
 
@@ -573,15 +572,10 @@ class UnionFind {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/post/japanese-basic/" data-toggle="tooltip" data-placement="top" title="日语基础(一)">&larr;
+                        <a href="/post/lc926/" data-toggle="tooltip" data-placement="top" title="Leetcode 926 Flip String to Monotone Increasing 解题分析">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/post/lc926/" data-toggle="tooltip" data-placement="top" title="Leetcode 926 Flip String to Monotone Increasing 解题分析">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
