@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Snowan Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://snowan.github.io/img/bg_1.jpeg">
+    <meta property="twitter:image" content="https://snowan.github.io/img/bg_1.jpeg" />
+    
+
+    
+    <meta name="title" content="并查集(Union Find Algorithm)" />
+    <meta property="og:title" content="并查集(Union Find Algorithm)" />
+    <meta property="twitter:title" content="并查集(Union Find Algorithm)" />
+    
+
+    
+    <meta name="description" content="Union-find 算法是用来解决动态连通性问题">
+    <meta property="og:description" content="Union-find 算法是用来解决动态连通性问题" />
+    <meta property="twitter:description" content="Union-find 算法是用来解决动态连通性问题" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Bear, snowan blog, personal, yoga, tech...">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>并查集(Union Find Algorithm)-Snowan Blog</title>
+
+    <link rel="canonical" href="/post/union-find/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Snowan Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/language">language</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/bg_uf.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/algorithm" title="Algorithm">
+                            Algorithm
+                        </a>
+                        
+                        <a class="tag" href="/tags/leetcode" title="leetcode">
+                            leetcode
+                        </a>
+                        
+                    </div>
+                    <h1>并查集(Union Find Algorithm)</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+			Posted by 
+			
+			         &#34;Snowan&#34;
+			 
+			on 
+			Monday, July 1, 2019
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                
+
+<h1 id="并查集-union-find-算法">并查集 (Union Find) 算法</h1>
+
+<p><em>这几天重温一下union-find算法, 重温 《算法》(Algorithms) 这本书union find 一小节, 写一篇学习笔记, 然后结合一些实际的算法例子的一篇读后感.</em></p>
+
+<p>Union-fina 算法主要是用来解决动态连通性问题的. 那么什么是动态连通性问题, union-find又是如何解决这类问题的, 下面将展开一些细节</p>
+
+<h2 id="动态连通性问题-dynamic-connectivity-problem">动态连通性问题 (Dynamic connectivity Problem)</h2>
+
+<p>给定一个pair(p, q), 如果p和q尚未连通,则把二者连通起来. p和q连通后, 称p和q在同一组内.</p>
+
+<h4 id="动态连通性的应用场景">动态连通性的应用场景：</h4>
+
+<p>网络连接判断：</p>
+
+<p>如果每个pair中的两个整数分别代表一个网络节点，那么该pair就是用来表示这两个节点是需要连通的。那么为所有的pairs建立了动态连通图后，就能够尽可能少的减少布线的需要，因为已经连通的两个节点会被直接忽略掉。</p>
+
+<p>变量名等同性(类似于指针的概念)：</p>
+
+<p>在程序中，可以声明多个引用来指向同一对象，这个时候就可以通过为程序中声明的引用和实际对象建立动态连通图来判断哪些引用实际上是指向同一对象。</p>
+
+<p>例如:
+<img src="/img/uf_2.png" alt="alt text" /></p>
+
+<p>简言之, 即给定两点(p, q), 如果没有连接, 那么根据已有的连通性判断给定两点是否连接,如果没有连接,那么就连接起来, 如果已经连接, 那么就不需要重新连接. 如图, A (0, 1, 2, 5 , 6) 和 B (3, 4, 7) 已连通, A中和B中任何两点都是不连通的, 如果给定两点(2,4)是不连通, 那么union-find 会把两点连通, A 和 B 中任意两点就都连通了.</p>
+
+<p>图中 A 和 B 分别是两个连通的 component, 我们把连通看做一种等价, 连通的component看作是等价类, 图中 A 和 B 分别为两个等价类 (即连通分量).</p>
+
+<h4 id="连通特性">连通特性</h4>
+
+<p>假设p和q已经相连(connected), 那么
+   - 自反性(Reflexive): <code>p</code> 和 <code>q</code> 是相连的.
+   - 对称性(Symmetric): 如果 <code>p</code> 和 <code>q</code> 是相连的, 那么反过来 <code>q</code> 和 <code>p</code> 也是相连的
+   - 传递性(Transitive): 如果 <code>p</code> 和 <code>q</code> 相连, 且 <code>p</code> 和 <code>r</code> 也相连, 那么 <code>q</code> 和 <code>r</code> 也是相连的. 图中例子, <code>0</code> 和 <code>1</code> 相连, <code>0</code> 和 <code>5</code> 相连, 那么 <code>1</code> 和 <code>5</code> 也是相连的.</p>
+
+<p>在一个图中, 如何快速的找到两点是否连通, 如何快速的连通两点? Union-find可以很好解决这个问题.</p>
+
+<h2 id="union-find">Union-Find</h2>
+
+<p><strong>实现:</strong> 利用数组实现, 数组下标表示没个数.</p>
+
+<p><strong>API:</strong>
+- int find(int p): 找出给定点p的等价类(连通分量).
+- void union(int p, int q): 给两个点建立连接, 使之构成一个等价类(连通分量).
+- boolean connected(int p, int q): 判定两点p 和 q 是否在同一等价类(连通分量)中.
+- int count(): 一个图中有多少个等价类(连通分量).</p>
+
+<p><strong>Note:</strong> <em>这里用整数表示节点, 如果是其他类型, 则可以用HashMap来建立相应的映射</em>.</p>
+
+<h3 id="quick-find-算法"><em>Quick-Find</em> 算法:</h3>
+
+<p>数据结构:
+1. Integer array id[] of size N.</p>
+
+<pre><code>int[] id = new int[N];
+</code></pre>
+
+<ol>
+<li>如果p和q是连通的, 那么p和q会有相同的id.
+<br /></li>
+</ol>
+
+<p>例如:
+<img src="/img/uf_3.png" alt="alt text" /></p>
+
+<p><strong>Java 代码实现</strong></p>
+
+<pre><code class="language-java">public class QuickFind {
+    int[] id;
+    public QuickFind(int N) {
+        id = new int[N];
+        for (int i = 0; i &lt; N; i++) {
+            id[i] = i;
+        }
+    }
+
+    public boolean find(int p, int q) {
+        return id[p] == id[q];
+    }
+
+    public void union(int p, int q) {
+        int pid = id[p];
+        int qid = id[q];
+        for (int i = 0; i &lt; id.length; i++) {
+            if (id[i] == qid) {
+                id[q] = pid;
+            }
+        }
+    }
+}
+
+</code></pre>
+
+<p>####时间复杂度:
+- <code>find(): 时间复杂度是O(1)</code>
+- <code>union(): 时间复杂度是O(N)</code></p>
+
+<p>显而易见, Quick-Find 算法太慢了, Quick-Find 算法, 可能要·O(MN)计算. 如果新添加路径的数量是M，节点数量是N，那么最后的时间复杂度就是MN，显然是一个平方阶的复杂度，对于大规模的数据而言，这是非常非常慢的(给个如下图数据), 想要解决这个问题，关键就是要提高union方法的效率，让它不再需要遍历整个数组.</p>
+
+<p><img src="/img/uf_4.png" alt="alt text" /></p>
+
+<h3 id="quick-union-算法">Quick-Union 算法</h3>
+
+<p><strong>数据结构</strong>:
+1. <code>Integer array parent[] of size N</code>
+2. <code>parent[i] 是i节点的父节点</code>
+3. <code>Root 节点 i 是 parent[parent[...preant[i]...]]</code></p>
+
+<p>例子:
+<img src="/img/uf_5.png" alt="alt text" /></p>
+
+<p>要连通pair (3, 5), 找到3和5的root, 只要把5的root 变成3的root即可. 如下图所示:
+<img src="/img/uf_6.png" alt="alt text" /></p>
+
+<p><strong>Java 代码实现</strong>:</p>
+
+<pre><code class="language-java">public class QuickUnion {
+    int[] parent;
+    public QuickUnion(int N) {
+        parent = new int[N];
+        for (int i = 0; i &lt; N; i++) {
+            parent[i] = i;
+        }
+    }
+
+    public int root(int p) {
+        while (p != parent[p]) p = parent[p];
+        return p;
+    }
+
+    public boolean find(int p, int q) {
+        return root(p) == root(q);
+    }
+
+    public void union(int p, int q) {
+        int rp = root(p);
+        int rq = root(q);
+        parent[rp] = rq;
+    }
+}
+</code></pre>
+
+<h4 id="时间复杂度">时间复杂度:</h4>
+
+<ul>
+<li><p><code>find() 最坏的情况下时间复杂度是 O(N), 当树不平衡, 每个root 只有一个子节点的时候.</code> 如:</p>
+
+<pre><code>0
+\
+1
+\
+2
+ \
+  3
+
+</code></pre></li>
+
+<li><p><code>union() 时间复杂度是 O(1), 如果包含 find() 的时间复杂度, 那么最坏情况下时间复杂度也是 O(N)</code></p></li>
+</ul>
+
+<h3 id="weighted-quick-union-算法-加权quick-union">Weighted quick-union 算法 (加权quick-union)</h3>
+
+<p>Quick-Union 查找慢是由于当树变的很高的时候, 那么要加快就可以平衡树使得树不变高.</p>
+
+<p><strong>数据结构</strong>:
+- <code>Integer array parent[] of size N</code>
+- <code>Integer array rank[] of size N</code>
+- <code>parent[i] 是 i 节点的 root 节点</code>
+- <code>rank[i] 是 i 节点所在component 的个数</code></p>
+
+<p><strong>Java算法实现</strong></p>
+
+<pre><code class="language-java">public class WeightedQuickUnion {
+    int[] parent;
+    int[] rank;
+    public WeighterQuickUnion(int N) {
+        parent = new int[N];
+        rank = new int[N];
+        for (int i = 0; i &lt; N; i++) {
+            parent[i] = i;
+            rank[i] = 1;
+        }
+    }
+
+    public int root(int x) {
+        return parent[x] == x ? x : root(parent[x]);
+    }
+    
+    public boolean find(int p, int q) {
+        return root(p) == root(q);
+    }
+    
+    public void union(int p, int q) {
+        int rp = root(p);
+        int rq = root(q);
+        if (rank[rp] &gt;= rank[rq]) {
+            parent[rq] = rp;
+            rank[rp] += rank[rq];
+        } else {
+            parent[rp] = rq;
+            rank[rq] += rank[rp];
+        }
+    }
+}
+</code></pre>
+
+<h4 id="时间复杂度-1">时间复杂度</h4>
+
+<ul>
+<li><code>find() 时间复杂度 log(N)</code></li>
+<li><code>union() 时间复杂度 log(N)</code></li>
+</ul>
+
+<p>*Quick-Union*和<em>Weighted-Quick-Union</em> 的比较:</p>
+
+<p><img src="/img/uf_7.png" alt="alt text" /></p>
+
+<p>通过比较, 我们可以发现,用<code>rank</code>去记录每个连通<code>component</code>的<code>size</code>, 然后平衡树, 即使得树扁平化(如上图), 可以避免树变得很高, 提高树查找的时间复杂度.</p>
+
+<p>以下是几种<code>union-find</code> 算法的时间复杂度的比较:
+| 算法(Algorithm) |  构造函数(Constructor)  | Union | Find |
+|&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;|&mdash;&mdash;-|&mdash;&mdash;|
+| Quick-Find     | O(N)                   | O(N)  | O(1) |<br />
+| Quick-Union    | O(N)                   | 树高度 | 树高度|<br />
+| Weighted Quick-Union | O(N)             | O(logN)| O(logN) |
+|Weighted Quick-Union with Path Compression| O(N)|near to O(1)| near to O(1)|</p>
+
+<p>根据上图对不同union-find算法的时间复杂度的分析, 对于大规模数据的运算, 优先选择Weighted Quick-Union 算法. 如果数据量超大, 那么最好选 <code>Weighted Quick-Union with Path Compression</code> 算法.</p>
+
+<h3 id="下面列举几个跟-union-find-相关的算法题">下面列举几个跟<code>Union-Find</code>相关的算法题</h3>
+
+<p>Leetcode:
+<a href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/">323. Number of Connected Components in an Undirected Graph</a></p>
+
+<pre><code>Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes), write a function to find the number of connected components in an undirected graph.
+
+Example 1:
+
+Input: n = 5 and edges = [[0, 1], [1, 2], [3, 4]]
+
+     0          3
+     |          |
+     1 --- 2    4 
+
+Output: 2
+Example 2:
+
+Input: n = 5 and edges = [[0, 1], [1, 2], [2, 3], [3, 4]]
+
+     0           4
+     |           |
+     1 --- 2 --- 3
+
+Output:  1
+Note:
+You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
+</code></pre>
+
+<p>这是一道非常经典用Union-Find解答的题, 题目大意是给定一些节点, 和一些相连的pair 对(连通pair), 求这些点中, 有多少个连通图.</p>
+
+<p><strong>分析</strong>:
+这是一个图, 要求有多少个连通图, 用Union-Find, 对每个pair对, 查看这个pair 对是否已经相连, 若没有相连, 则Union. 最后找出总共有多少个连通图.</p>
+
+<p><strong>Java代码实现</strong>:</p>
+
+<pre><code class="language-java">class Solution {
+    public int countComponents(int n, int[][] edges) {
+        if (edges == null || edges.length == 0) return n;
+        UnionFind uf = new UnionFind(n);
+        for (int[] edge : edges) {
+            int px = uf.find(edge[0]);
+            int py = uf.find(edge[1]);
+            if (px == py) continue;
+            uf.union(edge[0], edge[1]);
+        }
+        return uf.numConnected;
+    }
+}
+class UnionFind {
+    int[] parent;
+    int[] rank;
+    int numConnected;
+    public UnionFind(int k) {
+        parent = new int[k];
+        rank = new int[k];
+        numConnected = k;
+        // pre fill parent and rank
+        for (int i = 0; i &lt; k; i++) {
+            parent[i] = i;
+            rank[i] = 1;
+        }
+    }
+
+    public int find(int x) {
+        int p = parent[x];
+        if (p == x) return x;
+        return parent[x] = find(parent[x]);
+    }
+    
+    public void union(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px == py) return;
+        if (rank[py] &gt;= rank[px]) {
+            parent[px] = py;
+            rank[py] += rank[px];
+        } else {
+            parent[py] = px;
+            rank[px] += rank[py];
+        }
+        numConnected--;
+    }
+}
+</code></pre>
+
+<h2 id="参考-references">(参考)References</h2>
+
+<ol>
+<li><a href="https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf">算法 Union-Find</a></li>
+</ol>
+
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="https://snowan.github.io"><img src="/img/favicon.png" />Snowan Blog</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/japanese-basic/" data-toggle="tooltip" data-placement="top" title="日语基础(一)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/lc926/" data-toggle="tooltip" data-placement="top" title="Leetcode 926 Flip String to Monotone Increasing 解题分析">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/algorithm" title="algorithm">
+                            algorithm
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/leetcode" title="leetcode">
+                            leetcode
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://snowan.github.io">Bear&#39;s Blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href="" rel="alternate" type="application/rss+xml" title="Snowan Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:xiaowei.wan89@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    <li>
+                        <a target="_blank" href="/your%20wechat%20qr%20code%20image">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/snowan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/xiaoweiwan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Snowan Blog 2019
+
+
+
+
+
+
+
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
