@@ -502,14 +502,14 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 <ul>
 <li><p>算法</p>
 
-<pre><code>1. 深度优先遍历(DFS) (递归)
+<pre><code>深度优先遍历(DFS) (递归)
 1. 从第0层开始遍历, 记住每一个节点的层级(level)
 2. 层级(level)相同, 就把当前节点值放入相同层
 3. 遍历当前节点的下一层的左子树(level + 1)
 4. 遍历当前节点的下一层的右子树(level + 1)
 
 
-2. 广度优先遍历(BFS) - 用队列(Queue)实现, 利用队列先进先出(FIFIO)特性
+广度优先遍历(BFS) - 用队列(Queue)实现, 利用队列先进先出(FIFIO)特性
 1. 创建队列(Queue)
 2. 从根节点(root) 开始, 放入队列中
 3. 遍历当前队列所有节点, 所有节点在相同层
