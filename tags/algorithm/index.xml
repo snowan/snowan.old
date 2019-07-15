@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>algorithm on Snowan Blog</title>
+    <title>Algorithm on Snowan Blog</title>
     <link>https://snowan.github.io/tags/algorithm/</link>
-    <description>Recent content in algorithm on Snowan Blog</description>
+    <description>Recent content in Algorithm on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate>
