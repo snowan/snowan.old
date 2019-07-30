@@ -6,10 +6,19 @@
     <description>Recent content in Tech on Snowan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://snowan.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>460 LFU Cache 解题报告</title>
+      <link>https://snowan.github.io/post/460.lfu-cache/</link>
+      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snowan.github.io/post/460.lfu-cache/</guid>
+      <description>题目地址 Problem 题目描述 Design and implement a data structure for Least Frequently Used (LFU) cache. It should support the following operations: get and put. get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1. put(key, value) - Set or insert the value if the key is not already present. When the cache</description>
+    </item>
     
     <item>
       <title>二叉树遍历(Binary Tree Traversal)-先序,中序,后序,层级遍历</title>
