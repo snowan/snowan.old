@@ -251,6 +251,7 @@ cache.get(4);       // returns 4
 <p>用给的例子举例说明：</p>
 
 <pre><code> 1. put(1, 1), 
+    - 查看capacity，内存还有空间，直接插入。
     - 首先查找nodeMap中有没有key=1对应的value，
         没有就新建node(key, value, freq) -&gt; node1(1, 1, 1), 插入 nodeMap，{[1, node1]}
     - 查找freqMap中有没有freq=1 对应的value，
@@ -261,6 +262,7 @@ cache.get(4);       // returns 4
 <p><img src="/img/460.lfu-cache-1.jpg" alt="460.lfu-cache-1" /></p>
 
 <pre><code> 2. put(2, 2), 
+    - 查看capacity，内存还有空间，直接插入。
     - 首先查找nodeMap中有没有key=2对应的value，
         没有就新建node(key, value, freq) -&gt; node2(2, 2, 1), 插入 nodeMap，{[1, node1], [2, node2]}
     - 查找freqMap中有没有freq=1 对应的value，
@@ -368,8 +370,8 @@ cache.get(4);       // returns 4
     private int size;
 
     DoubleLinkedList() {
-      head = new Node(0, 0);
-      tail = new Node(0, 0);
+      head = new Node(null, null);
+      tail = new Node(null, null);
       head.next = tail;
       tail.prev = head;
     }
